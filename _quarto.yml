@@ -3,7 +3,7 @@ project:
   output-dir: docs
 
 website:
-  title: "Leonel Salazar Data Analysis Portfolio"
+  title: "Leonel Salazar"
   navbar:
     left:
       - text: "About Me"

@@ -2,4 +2,4 @@
 title: "Business and Data Analytics"
 ---
 
-A collection of data projects.
+A collection of my Data Projects.
