@@ -1,14 +1,16 @@
 ---
-title: "Student Depression Analysis"
+title: "Student Depression Analytis"
+author: "Leonel Salazar"
 format: html
-
 ---
 
+## Quarto
 ```{r}
 library(tidyverse)
 library(here)
 library(lmtest)
 library(car)
+library(here)
 
 ```
 
@@ -164,6 +166,7 @@ plot(fitted_sample, sqrt_abs_res,
 lines(lowess(fitted_sample, sqrt_abs_res), col="red")
 
 ```
+
 ```{r}
 
 # Test for homoscedasticity using Breusch-Pagan test

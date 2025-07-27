@@ -12,6 +12,9 @@ website:
         menu:
           - text: "Honeybee Project"
             file: Group 10 Final Project/manuscript_final-2.qmd
+          - text: "Student Depression Analysis"
+            file: Student Depression Project/student depression analysis.qmd
+            
 
     right:
       - icon: github 

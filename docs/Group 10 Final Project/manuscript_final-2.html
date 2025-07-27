@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Edward Cruz, Jr., Leonel G. Salazar, Amelia Tristan, Mojisola Popoola">
-<meta name="dcterms.date" content="2025-07-27">
+<meta name="dcterms.date" content="2024-11-03">
 
 <title>Leonel Salazar - Honey Bee Colonies Impacted by Varroa, American Foulbrood and Global Warming</title>
 <style>
@@ -131,6 +131,10 @@ div.csl-indent {
     <a class="dropdown-item" href="../Group 10 Final Project/manuscript_final-2.html">
  <span class="dropdown-text">Honeybee Project</span></a>
   </li>  
+        <li>
+    <a class="dropdown-item" href="../Student Depression Project/depression.html">
+ <span class="dropdown-text">Student Depression Analysis</span></a>
+  </li>  
     </ul>
   </li>
 </ul>
@@ -174,7 +178,7 @@ div.csl-indent {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">July 27, 2025</p>
+      <p class="date">November 3, 2024</p>
     </div>
   </div>
   
@@ -412,8 +416,8 @@ div.csl-indent {
 <h2 data-number="3.3" class="anchored" data-anchor-id="schematic-of-workflow"><span class="header-section-number">3.3</span> Schematic of workflow</h2>
 <div class="cell">
 <div class="cell-output-display">
-<div class="grViz html-widget html-fill-item" id="htmlwidget-54191c6a819bc8fd2041" style="width:100%;height:464px;"></div>
-<script type="application/json" data-for="htmlwidget-54191c6a819bc8fd2041">{"x":{"diagram":"\n  digraph Data_Analysis_Flowchart {\n    graph [layout = dot, rankdir = LR, label = \"Workflow Schematic\", fontsize = 75, labelloc = \"t\"]\n\n    node [style = filled, fontsize = 50, width = 6, height = 6, penwidth = 8]\n\n    Define_Objectives [label = \"Define Objectives\", shape = oval, color = lightblue]\n    Collect_Data [label = \"Collect Data\", shape = box, color = lightgrey]\n    Clean_Data [label = \"Clean Data\", shape = ellipse, color = lightyellow]\n    Analyze_Data [label = \"Analyze Data\", shape = diamond, color = lightcoral]\n    Interpret_Results [label = \"Interpret Results\", shape = trapezium, color = lightgrey]\n    Visualize_Data [label = \"Visualize Data\", shape = parallelogram, color = lightpink]\n    Compile_Report [label = \"Compile Report\", shape = house, color = lightcyan]\n    Review_Revise [label = \"Review & Revise\", shape = invhouse, color = lightgoldenrodyellow]\n    Present_Report [label = \"Present Report\", shape = hexagon, color = lightseagreen]\n\n    Define_Objectives -> Collect_Data\n    Collect_Data -> Clean_Data\n    Clean_Data -> Analyze_Data\n    Analyze_Data -> Interpret_Results\n    Interpret_Results -> Visualize_Data\n    Visualize_Data -> Compile_Report\n    Compile_Report -> Review_Revise\n    Review_Revise -> Present_Report\n  }\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div class="grViz html-widget html-fill-item" id="htmlwidget-4e318e84575d4bf23920" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-4e318e84575d4bf23920">{"x":{"diagram":"\n  digraph Data_Analysis_Flowchart {\n    graph [layout = dot, rankdir = LR, label = \"Workflow Schematic\", fontsize = 75, labelloc = \"t\"]\n\n    node [style = filled, fontsize = 50, width = 6, height = 6, penwidth = 8]\n\n    Define_Objectives [label = \"Define Objectives\", shape = oval, color = lightblue]\n    Collect_Data [label = \"Collect Data\", shape = box, color = lightgrey]\n    Clean_Data [label = \"Clean Data\", shape = ellipse, color = lightyellow]\n    Analyze_Data [label = \"Analyze Data\", shape = diamond, color = lightcoral]\n    Interpret_Results [label = \"Interpret Results\", shape = trapezium, color = lightgrey]\n    Visualize_Data [label = \"Visualize Data\", shape = parallelogram, color = lightpink]\n    Compile_Report [label = \"Compile Report\", shape = house, color = lightcyan]\n    Review_Revise [label = \"Review & Revise\", shape = invhouse, color = lightgoldenrodyellow]\n    Present_Report [label = \"Present Report\", shape = hexagon, color = lightseagreen]\n\n    Define_Objectives -> Collect_Data\n    Collect_Data -> Clean_Data\n    Clean_Data -> Analyze_Data\n    Analyze_Data -> Interpret_Results\n    Interpret_Results -> Visualize_Data\n    Visualize_Data -> Compile_Report\n    Compile_Report -> Review_Revise\n    Review_Revise -> Present_Report\n  }\n","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <div class="cell">
@@ -835,23 +839,23 @@ Summary of sample sizes: 10, 10, 10, 9, 10, 10, ...
 Resampling results across tuning parameters:
 
   C     RMSE      Rsquared  MAE     
-  0.25  18.57975  1         18.57754
-  0.50  15.81269  1         15.80799
-  1.00  12.67278  1         12.66600
-  2.00  12.01048  1         11.99919
-  4.00  12.80953  1         12.80447
+  0.25  17.53562  1         17.50361
+  0.50  15.77310  1         15.70579
+  1.00  13.78461  1         13.62072
+  2.00  12.60238  1         12.28724
+  4.00  11.73968  1         11.43567
 
-Tuning parameter 'sigma' was held constant at a value of 0.7581976
+Tuning parameter 'sigma' was held constant at a value of 0.2222181
 RMSE was used to select the optimal model using the smallest value.
-The final values used for the model were sigma = 0.7581976 and C = 2.</code></pre>
+The final values used for the model were sigma = 0.2222181 and C = 4.</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>      sigma    C     RMSE Rsquared      MAE   RMSESD RsquaredSD     MAESD
-1 0.7581976 0.25 18.57975        1 18.57754 11.03592         NA 11.035938
-2 0.7581976 0.50 15.81269        1 15.80799 11.00374         NA 11.003755
-3 0.7581976 1.00 12.67278        1 12.66600 10.40543         NA 10.405981
-4 0.7581976 2.00 12.01048        1 11.99919 10.29968         NA 10.303168
-5 0.7581976 4.00 12.80953        1 12.80447  9.92364         NA  9.924557</code></pre>
+<pre><code>      sigma    C     RMSE Rsquared      MAE    RMSESD RsquaredSD     MAESD
+1 0.2222181 0.25 17.53562        1 17.50361 10.214886         NA 10.218887
+2 0.2222181 0.50 15.77310        1 15.70579  9.634763         NA  9.633691
+3 0.2222181 1.00 13.78461        1 13.62072  9.002787         NA  8.985006
+4 0.2222181 2.00 12.60238        1 12.28724  7.945770         NA  7.915106
+5 0.2222181 4.00 11.73968        1 11.43567  8.043123         NA  7.956562</code></pre>
 </div>
 </div>
 <p>The table presents the performance metrics of a model evaluated with different values of the parameter (C), while keeping the parameter () constant at 0.05440357. The metrics include RMSE (Root Mean Square Error), Rsquared (Coefficient of Determination), MAE (Mean Absolute Error), RMSESD (Standard Deviation of RMSE), and MAESD (Standard Deviation of MAE).</p>

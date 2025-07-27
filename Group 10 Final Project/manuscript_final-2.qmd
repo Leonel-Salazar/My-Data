@@ -2,7 +2,7 @@
 title: "Honey Bee Colonies Impacted by Varroa, American Foulbrood and Global Warming"
 subtitle: ""
 author: Edward Cruz, Jr., Leonel G. Salazar, Amelia Tristan, Mojisola Popoola
-date: today
+date: 11-03-2024
 format:
   html:
     toc: false
