@@ -1,0 +1,284 @@
+---
+title: "group project titanic"
+author: "leo"
+format: docx
+---
+
+```{r}
+
+library(here)
+library(survival)
+library(survminer)
+library(dplyr)  
+library(caret)  
+library(randomForest)  
+library(pROC)  
+library(survival)  
+library(survminer)  
+
+```
+
+
+
+```{r}
+
+library(dplyr)
+
+titanic_df <- read.csv('Titanic-Dataset.csv')
+
+titanic_df$Sex <- as.factor(titanic_df$Sex)
+titanic_df$Pclass <- as.factor(titanic_df$Pclass)
+titanic_df$Embarked <- as.factor(titanic_df$Embarked)
+titanic_df$Survived <- as.factor(titanic_df$Survived)
+titanic_df$CabinDeck <- factor(ifelse(nchar(as.character(titanic_df$Cabin)) > 0, 
+                                     substr(as.character(titanic_df$Cabin), 1, 1), 
+                                     'Unknown'))
+titanic_df$FamilySize <- titanic_df$SibSp + titanic_df$Parch + 1
+
+
+```
+
+
+
+
+```{r}
+
+# Load the Titanic dataset  
+titanic_df <- read.csv("Titanic-Dataset.csv", stringsAsFactors = FALSE)  
+  
+# Prepare variables: create FarePerAge, CabinLocation, FamilySize, and IsAlone  
+titanic_df$FarePerAge <- with(titanic_df, ifelse(!is.na(Age) & Age > 0, Fare / Age, NA))  
+titanic_df$CabinLocation <- ifelse(!is.na(titanic_df$Cabin) & titanic_df$Cabin != "",   
+                                   substr(titanic_df$Cabin, 1, 1),   
+                                   "Unknown")  
+titanic_df$FamilySize <- with(titanic_df, SibSp + Parch + 1)  
+titanic_df$IsAlone <- ifelse(titanic_df$FamilySize == 1, 1, 0)  
+  
+# Convert variables to factors where needed  
+titanic_df$Embarked <- as.factor(titanic_df$Embarked)  
+titanic_df$CabinLocation <- as.factor(titanic_df$CabinLocation)  
+titanic_df$IsAlone <- as.factor(titanic_df$IsAlone)  
+  
+# Run the logistic regression analysis with fixed CabinLocation  
+logit_model <- glm(Survived ~ Embarked + FarePerAge + CabinLocation + FamilySize + IsAlone,   
+                   data = titanic_df, family = binomial)  
+  
+# Output the summary of the logistic regression model  
+print(summary(logit_model))  
+
+# Calculate Odds Ratios and 95% Confidence Intervals
+or_values <- exp(coef(logit_model))
+ci_values <- exp(confint(logit_model))
+print(or_values)
+print(ci_values)
+
+# Create a logistic regression effect plot for FarePerAge
+# We predict probability across a range of FarePerAge values while holding other variables constant (using median or reference levels)
+fare_range <- seq(min(titanic_df$FarePerAge, na.rm = TRUE), max(titanic_df$FarePerAge, na.rm = TRUE), length.out = 100)
+# use typical values: Embarked = most common, CabinLocation = most common, FamilySize = median, IsAlone = most common
+common_embarked <- levels(titanic_df$Embarked)[which.max(table(titanic_df$Embarked))]
+common_cabin <- names(which.max(table(titanic_df$CabinLocation)))
+median_family <- median(titanic_df$FamilySize, na.rm = TRUE)
+common_alone <- names(which.max(table(titanic_df$IsAlone)))
+
+test_data <- data.frame(FarePerAge = fare_range,
+                        Embarked = factor(common_embarked, levels=levels(titanic_df$Embarked)),
+                        CabinLocation = factor(common_cabin, levels=levels(titanic_df$CabinLocation)),
+                        FamilySize = median_family,
+                        IsAlone = factor(common_alone, levels=levels(titanic_df$IsAlone)))
+
+test_data$predicted_prob <- predict(logit_model, newdata = test_data, type = 'response')
+
+# Plot the logistic regression effect for FarePerAge
+plot(test_data$FarePerAge, test_data$predicted_prob, type='l', col='blue',
+     main='Logistic Regression Effect: Probability of Survival vs FarePerAge',
+     xlab='Fare per Age', ylab='Predicted Probability of Survival')
+
+
+# Kaplan-Meier Curves
+# Note: The Titanic dataset does not have an explicit time-to-event variable. 
+# We use Age as a surrogate for time for demonstration purposes.
+# Create a Surv object with Age as time and Survived as event indicator.
+# Warning: This use is not a true survival analysis based on follow-up time.
+km_fit_embarked <- survfit(Surv(Age, Survived) ~ Embarked, data=titanic_df)
+
+# Plot Kaplan-Meier curves by Embarked category
+km_plot <- ggsurvplot(km_fit_embarked, data=titanic_df, risk.table = TRUE, 
+                        pval = TRUE, ggtheme = theme_minimal(),
+                        title = 'Kaplan-Meier Curves (Age as surrogate) by Embarked')
+print(km_plot)
+
+# Detailed Survival Rates by each Category:
+# For Embarked:
+survival_rates_embarked <- aggregate(Survived ~ Embarked, data=titanic_df, FUN=function(x){sum(x, na.rm = TRUE)/length(x)})
+print(survival_rates_embarked)
+
+# For Cabin Location:
+survival_rates_cabin <- aggregate(Survived ~ CabinLocation, data=titanic_df, FUN=function(x){sum(x, na.rm = TRUE)/length(x)})
+print(survival_rates_cabin)
+
+# For Family Size:
+survival_rates_family <- aggregate(Survived ~ FamilySize, data=titanic_df, FUN=function(x){sum(x, na.rm = TRUE)/length(x)})
+print(survival_rates_family)
+
+# For IsAlone:
+survival_rates_alone <- aggregate(Survived ~ IsAlone, data=titanic_df, FUN=function(x){sum(x, na.rm = TRUE)/length(x)})
+print(survival_rates_alone)
+
+# Summary statistics for predictors and outcome
+summary_stats <- summary(titanic_df[, c('Age', 'Fare', 'FarePerAge', 'FamilySize')])
+print(summary_stats)
+
+# Completed advanced analyses.
+
+```
+```{r}
+
+
+
+titanic_df <- read.csv('Titanic-Dataset.csv')
+titanic_df$Sex <- as.factor(titanic_df$Sex)
+titanic_df$Pclass <- as.factor(titanic_df$Pclass)
+titanic_df$Embarked <- as.factor(titanic_df$Embarked)
+titanic_df$Survived <- as.factor(titanic_df$Survived)
+titanic_df$CabinDeck <- factor(ifelse(nchar(as.character(titanic_df$Cabin)) > 0, 
+                                     substr(as.character(titanic_df$Cabin), 1, 1), 
+                                     'Unknown'))
+titanic_df$FamilySize <- titanic_df$SibSp + titanic_df$Parch + 1
+titanic_df$IsAlone <- factor(ifelse(titanic_df$FamilySize == 1, 1, 0))
+
+survivors <- titanic_df %>%
+    filter(Survived == 1) %>%
+    select(PassengerId, Name, Sex, Pclass, Embarked, CabinDeck, FamilySize, IsAlone, Age, Fare) %>%
+    na.omit()
+
+survivor_groups <- survivors %>%
+    group_by(Sex, Pclass, Embarked, CabinDeck, FamilySize, IsAlone) %>%
+    summarise(
+        Count = n(),
+        Age = median(Age),
+        Fare = median(Fare),
+        PassengerIds = paste(sort(PassengerId), collapse = ", "),
+        .groups = "drop"
+    )
+
+model_data <- titanic_df %>%
+    select(Survived, Sex, Pclass, Age, Fare, Embarked, CabinDeck, FamilySize, IsAlone) %>%
+    na.omit()
+
+set.seed(123)
+rf_model <- randomForest(Survived ~ ., data = model_data, ntree = 1000)
+
+survivor_groups$survival_prob <- predict(rf_model, survivor_groups, type = "prob")[,2]
+
+best_combinations <- survivor_groups %>%
+    arrange(desc(survival_prob)) %>%
+    mutate(survival_prob = round(survival_prob, 3))
+
+print(best_combinations)
+```
+
+
+
+```{r}
+
+library(dplyr)
+library(ggplot2)
+
+titanic_df$Survived <- as.numeric(as.character(titanic_df$Survived))
+
+age_survival <- titanic_df %>%
+  filter(!is.na(Age), !is.na(Survived)) %>%
+  mutate(age_group = cut(Age, 
+                        breaks = seq(0, 80, by = 5),
+                        labels = paste(seq(0, 75, by = 5), 
+                                     seq(5, 80, by = 5),
+                                     sep = "-"))) %>%
+  group_by(age_group) %>%
+  summarise(survival_prob = mean(Survived))
+
+ggplot(age_survival, aes(x = age_group, y = survival_prob)) +
+  geom_col(fill = "steelblue", color = "black") +
+  labs(x = "Age Groups",
+       y = "Survival Probability",
+       title = "Survival Probability by Age Groups") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  scale_y_continuous(labels = scales::percent_format(accuracy = 1))
+
+```
+
+```{r}
+
+library(dplyr)
+library(ggplot2)
+library(gridExtra)
+
+# Passenger Class
+pclass_survival <- titanic_df %>%
+  filter(!is.na(Survived)) %>%
+  mutate(Survived = as.numeric(as.character(Survived))) %>%
+  group_by(Pclass) %>%
+  summarise(survival_prob = mean(Survived))
+
+p1 <- ggplot(pclass_survival, aes(x = factor(Pclass), y = survival_prob)) +
+  geom_col(fill = "steelblue", color = "black") +
+  labs(x = "Passenger Class", y = "Survival Probability", title = "By Passenger Class") +
+  theme_minimal() +
+  scale_y_continuous(labels = scales::percent_format(accuracy = 1))
+
+# Embarkation Point
+embarked_survival <- titanic_df %>%
+  filter(!is.na(Survived), !is.na(Embarked)) %>%
+  mutate(Survived = as.numeric(as.character(Survived))) %>%
+  group_by(Embarked) %>%
+  summarise(survival_prob = mean(Survived))
+
+p2 <- ggplot(embarked_survival, aes(x = Embarked, y = survival_prob)) +
+  geom_col(fill = "steelblue", color = "black") +
+  labs(x = "Embarkation Point", y = "Survival Probability", title = "By Embarkation Point") +
+  theme_minimal() +
+  scale_y_continuous(labels = scales::percent_format(accuracy = 1))
+
+# Cabin Deck
+titanic_df$Deck <- substr(titanic_df$Cabin, 1, 1)
+deck_survival <- titanic_df %>%
+  filter(!is.na(Survived), !is.na(Deck)) %>%
+  mutate(Survived = as.numeric(as.character(Survived))) %>%
+  group_by(Deck) %>%
+  summarise(survival_prob = mean(Survived))
+
+p3 <- ggplot(deck_survival, aes(x = Deck, y = survival_prob)) +
+  geom_col(fill = "steelblue", color = "black") +
+  labs(x = "Cabin Deck", y = "Survival Probability", title = "By Cabin Deck") +
+  theme_minimal() +
+  scale_y_continuous(labels = scales::percent_format(accuracy = 1))
+
+# Family Size
+titanic_df$FamilySize <- titanic_df$SibSp + titanic_df$Parch + 1
+family_survival <- titanic_df %>%
+  filter(!is.na(Survived)) %>%
+  mutate(Survived = as.numeric(as.character(Survived))) %>%
+  group_by(FamilySize) %>%
+  summarise(survival_prob = mean(Survived))
+
+p4 <- ggplot(family_survival, aes(x = factor(FamilySize), y = survival_prob)) +
+  geom_col(fill = "steelblue", color = "black") +
+  labs(x = "Family Size", y = "Survival Probability", title = "By Family Size") +
+  theme_minimal() +
+  scale_y_continuous(labels = scales::percent_format(accuracy = 1))
+
+# Arrange all plots in a grid
+grid.arrange(p1, p2, p3, p4, ncol = 2)
+```
+
+**The plots show:**
+
+- By Passenger Class: First class passengers had the highest survival rate, followed by second class, with third class having the lowest survival probability
+- By Embarkation Point: Passengers who embarked from 'C' (Cherbourg) had the highest survival rate, followed by 'Q' (Queenstown), and 'S' (Southampton)
+- By Cabin Deck: There are clear differences in survival rates between decks, with some upper decks having higher survival probabilities
+- By Family Size: Passengers traveling in small to medium-sized family groups (2-4 members) generally had higher survival probabilities than those traveling alone or in very large family groups
+
+
+
+

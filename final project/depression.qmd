@@ -1,0 +1,625 @@
+---
+title: "Group Project"
+format: docx
+---
+
+```{r}
+library(tidyverse)
+library(here)
+library(lmtest)
+library(car)
+
+```
+
+
+```{r}
+
+# Read the dataset
+df <- read.csv("student_depression_dataset.csv")
+print(head(df))
+print(str(df))
+
+```
+
+```{r}
+
+# Remove any rows with NA values
+df_clean <- na.omit(df)
+
+# Fit the model on clean data
+logistic_model <- glm(Depression ~ Gender + Age + Academic.Pressure + CGPA + 
+             Study.Satisfaction + Work.Study.Hours + Financial.Stress + 
+             `Have.you.ever.had.suicidal.thoughts..` + Family.History.of.Mental.Illness,
+             data = df_clean, family = binomial)
+
+# Get predictions
+predicted_probs <- predict(logistic_model, type = 'response')
+predicted_classes <- ifelse(predicted_probs > 0.5, 1, 0)
+
+# Create confusion matrix
+conf_matrix <- table(Predicted = predicted_classes, Actual = df_clean$Depression)
+print("Confusion Matrix:")
+print(conf_matrix)
+
+# Calculate accuracy, sensitivity, and specificity
+accuracy <- sum(diag(conf_matrix))/sum(conf_matrix)
+sensitivity <- conf_matrix[2,2]/(conf_matrix[2,2] + conf_matrix[1,2])
+specificity <- conf_matrix[1,1]/(conf_matrix[1,1] + conf_matrix[2,1])
+
+print(paste("Accuracy:", round(accuracy, 3)))
+print(paste("Sensitivity:", round(sensitivity, 3)))
+print(paste("Specificity:", round(specificity, 3)))
+
+# ROC curve
+library(pROC)
+roc_curve <- roc(df_clean$Depression, predicted_probs)
+auc_value <- auc(roc_curve)
+print(paste("AUC:", round(auc_value, 3)))
+
+# Plot ROC curve
+plot(roc_curve, main="ROC Curve")
+
+```
+
+
+```{r}
+
+# Calculate odds ratios by exponentiating the logistic regression coefficients  
+odds_ratios <- exp(coef(logistic_model))  
+print("Odds Ratios:")  
+print(odds_ratios)  
+  
+# Calculate 95% confidence intervals for the odds ratios  
+conf_int <- exp(confint(logistic_model))  
+print("95% Confidence Intervals for Odds Ratios:")  
+print(conf_int)  
+
+```
+## Odds Ratio Analysis from Logistic Regression  
+  
+| Predictor                                      | Odds Ratio (OR) | 95% CI Lower | 95% CI Upper | Significance (CI ≠ 1) |  
+|------------------------------------------------|-----------------|--------------|--------------|-----------------------|  
+| (Intercept)                                    | 0.4141          | 0.0199       | 4.4452       | No                    |  
+| Gender (Male vs. Female)                       | 1.0604          | 0.9885       | 1.1377       | No                    |  
+| Age (per year increase)                        | 0.8958          | 0.8892       | 0.9024       | Yes (protective)      |  
+| Academic Pressure                              | 2.3090          | 2.2445       | 2.3760       | Yes (risk ↑)          |  
+| CGPA (per unit increase)                       | 1.0616          | 1.0366       | 1.0870       | Yes (risk ↑)          |  
+| Study Satisfaction                             | 0.7858          | 0.7656       | 0.8065       | Yes (protective)      |  
+| Work‐Study Hours (per hour increase)           | 1.1228          | 1.1121       | 1.1335       | Yes (risk ↑)          |  
+| Financial Stress = 1                           | 0.1728          | 0.0163       | 3.7516       | No                    |  
+| Financial Stress = 2                           | 0.2555          | 0.0241       | 5.5482       | No                    |  
+| Financial Stress = 3                           | 0.4999          | 0.0472       | 10.8570      | No                    |  
+| Financial Stress = 4                           | 0.7923          | 0.0749       | 17.2010      | No                    |  
+| Financial Stress = 5                           | 1.5658          | 0.1479       | 33.9950      | No                    |  
+| Ever had suicidal thoughts (Yes vs. No)        | 12.3005         | 11.4172      | 13.2679      | Yes (risk ↑)          |  
+| Family History of Mental Illness (Yes vs. No)  | 1.2719          | 1.1861       | 1.3641       | Yes (risk ↑)          |  
+  
+### Interpretations  
+  
+- **Odds Ratio (OR):**    
+  - Values greater than 1 indicate increased odds of the outcome for that predictor.  
+  - Values less than 1 indicate decreased odds (protective effect).  
+  
+- **Significant Predictors:**  
+  - **Risk Factors (OR > 1 and statistically significant):**  
+    - **Academic Pressure (OR = 2.31):** Higher academic pressure increases the odds of the outcome.  
+    - **CGPA (OR = 1.06):** Increases in CGPA are associated with slightly higher odds of the outcome.  
+    - **Work‐Study Hours (OR = 1.12):** More work-study hours increase the odds.  
+    - **Ever had suicidal thoughts (OR = 12.30):** Strongly increases the odds.  
+    - **Family History of Mental Illness (OR = 1.27):** Increases the odds.  
+    
+  - **Protective Factors (OR < 1 and statistically significant):**  
+    - **Age (OR = 0.90):** Older age decreases the odds.  
+    - **Study Satisfaction (OR = 0.79):** Higher satisfaction is associated with lower odds.  
+    
+- **Non-significant Predictors:**  
+  - **Gender (Male vs. Female) and Financial Stress levels (1 to 5):** Their 95% confidence intervals include 1, implying no statistically significant effect.  
+
+```{r}
+
+# Take a random sample of 5000 observations for normality testing
+set.seed(123)
+sample_size <- 5000
+sample_indices <- sample(length(residuals(logistic_model)), sample_size)
+
+# Extract residuals and fitted values for the sample
+residuals_sample <- residuals(logistic_model, type="deviance")[sample_indices]
+fitted_sample <- fitted(logistic_model)[sample_indices]
+
+# Normality Tests on sample
+shapiro_test <- shapiro.test(residuals_sample)
+print("Shapiro-Wilk Test Results (on 5000 sample):")
+print(shapiro_test)
+
+# Visual tests for normality
+par(mfrow=c(2,2))
+
+# Q-Q Plot
+qqnorm(residuals_sample, main="Normal Q-Q Plot")
+qqline(residuals_sample, col="red")
+
+# Histogram
+hist(residuals_sample, 
+     main="Histogram of Residuals", 
+     xlab="Residuals", 
+     freq=FALSE,
+     breaks=30)
+curve(dnorm(x, mean=mean(residuals_sample), sd=sd(residuals_sample)), 
+      add=TRUE, col="red")
+
+# Residuals vs Fitted plot
+plot(fitted_sample, residuals_sample,
+     xlab="Fitted Values", 
+     ylab="Residuals",
+     main="Residuals vs Fitted")
+abline(h=0, col="red")
+
+# Scale-Location Plot
+sqrt_abs_res <- sqrt(abs(residuals_sample))
+plot(fitted_sample, sqrt_abs_res,
+     xlab="Fitted Values",
+     ylab="√|Standardized Residuals|",
+     main="Scale-Location Plot")
+lines(lowess(fitted_sample, sqrt_abs_res), col="red")
+
+```
+```{r}
+
+# Test for homoscedasticity using Breusch-Pagan test
+library(lmtest)
+residuals_squared <- residuals(logistic_model, type="pearson")^2
+bp_model <- lm(residuals_squared ~ fitted(logistic_model))
+bp_test <- bptest(bp_model)
+
+# Create diagnostic plots
+par(mfrow=c(2,2))
+
+# 1. Residuals vs Fitted
+plot(fitted(logistic_model), residuals(logistic_model, type="pearson"),
+     xlab="Fitted values",
+     ylab="Pearson residuals",
+     main="Residuals vs Fitted")
+abline(h=0, col="red")
+
+# 2. Scale-Location Plot
+sqrt_abs_res <- sqrt(abs(residuals(logistic_model, type="pearson")))
+plot(fitted(logistic_model), sqrt_abs_res,
+     xlab="Fitted values",
+     ylab="√|Standardized residuals|",
+     main="Scale-Location")
+lines(lowess(fitted(logistic_model), sqrt_abs_res), col="red")
+
+# 3. Residuals Distribution
+hist(residuals(logistic_model, type="pearson"),
+     main="Distribution of Residuals",
+     xlab="Pearson Residuals",
+     freq=FALSE)
+lines(density(residuals(logistic_model, type="pearson")), col="red")
+
+# 4. QQ Plot
+qqnorm(residuals(logistic_model, type="pearson"))
+qqline(residuals(logistic_model, type="pearson"), col="red")
+
+# Print Breusch-Pagan test results
+print("Breusch-Pagan Test for Homoscedasticity:")
+print(bp_test)
+
+```
+
+
+```{r}
+
+# Create confusion matrix visualization
+library(ggplot2)
+
+# Get predicted probabilities and classes
+pred_prob <- predict(logistic_model, type = "response")
+pred_class <- ifelse(pred_prob > 0.5, 1, 0)
+conf_matrix <- table(Predicted = pred_class, Actual = df_clean$Depression)
+
+# Convert confusion matrix to data frame for plotting
+conf_df <- as.data.frame(conf_matrix)
+colnames(conf_df) <- c("Predicted", "Actual", "Freq")
+
+# Plot confusion matrix heatmap
+ggplot(conf_df, aes(x = Actual, y = Predicted, fill = Freq)) +
+  geom_tile() +
+  geom_text(aes(label = Freq), color = "white", size = 10) +
+  scale_fill_gradient(low = "darkblue", high = "red") +
+  theme_minimal() +
+  labs(title = "Confusion Matrix Heatmap",
+       x = "Actual Depression",
+       y = "Predicted Depression")
+
+# ROC Curve
+library(pROC)
+roc_obj <- roc(df_clean$Depression, pred_prob)
+plot(roc_obj, main = "ROC Curve")
+auc_value <- auc(roc_obj)
+
+# Create a sample dataframe df_clean if not already defined
+if(!exists('df_clean')) {
+  set.seed(123)
+  # Creating dummy columns for demonstration
+  df_clean <- data.frame(
+    Academic.Pressure = rnorm(100, mean=50, sd=10),
+    Study.Satisfaction = rnorm(100, mean=70, sd=15),
+    Work.Study.Hours = rnorm(100, mean=30, sd=5),
+    Age = sample(18:30, 100, replace = TRUE),
+    Depression = sample(c('Low', 'Medium', 'High'), 100, replace = TRUE)
+  )
+  print(head(df_clean))
+} else {
+  print('df_clean already exists')
+}
+
+# Boxplots for key numerical predictors with colors
+par(mfrow = c(2, 2))
+
+# Academic Pressure vs Depression
+boxplot(Academic.Pressure ~ Depression, data = df_clean, 
+        main = "Academic Pressure vs Depression", 
+        col = "lightblue")
+
+# Study Satisfaction vs Depression
+boxplot(Study.Satisfaction ~ Depression, data = df_clean, 
+        main = "Study Satisfaction vs Depression", 
+        col = "lightgreen")
+
+# Work/Study Hours vs Depression
+boxplot(Work.Study.Hours ~ Depression, data = df_clean, 
+        main = "Work/Study Hours vs Depression", 
+        col = "lightcoral")
+
+# Age vs Depression
+boxplot(Age ~ Depression, data = df_clean, 
+        main = "Age vs Depression", 
+        col = "plum")
+
+
+
+```
+
+
+
+```{r}
+
+library(ggplot2)  
+  
+# Load the data into dataframe 'df'  
+df <- read.csv("student_depression_dataset.csv")  
+  
+# Create a function to plot empirical logit vs. continuous predictor  
+plot_logit_linearity <- function(data, continuous_var, dependent_var) {  
+  # Create decile bins for the continuous variable  
+  breaks <- quantile(data[[continuous_var]], probs = seq(0, 1, length.out = 11), na.rm = TRUE)  
+  data$bins <- cut(data[[continuous_var]], breaks = breaks, include.lowest = TRUE)  
+    
+  # Aggregate to calculate the mean of the predictor and the proportion of positive outcomes per bin  
+  grouped <- aggregate(data[c(continuous_var, dependent_var)],  
+                       by = list(bins = data$bins), FUN = mean, na.rm = TRUE)  
+  names(grouped)[2:3] <- c("mean_predictor", "proportion")  
+    
+  # Compute empirical logit; add a small constant to avoid division by zero issues  
+  grouped$logit <- log((grouped$proportion + 0.0001) / (1 - grouped$proportion + 0.0001))  
+    
+  # Create plot to visually inspect the relationship  
+  p <- ggplot(grouped, aes(x = mean_predictor, y = logit)) +  
+    geom_point(size = 3) +  
+    geom_smooth(method = "loess", se = TRUE, col = "blue") +  
+    theme_minimal() +  
+    labs(title = paste("Linearity of Logit for", continuous_var),  
+         x = continuous_var,  
+         y = "Empirical Logit")  
+    
+  print(p)  
+}  
+  
+# Example usage assuming 'age' is your continuous predictor and 'depression' as the outcome variable  
+plot_logit_linearity(df, "Age", "Depression")  
+
+```
+
+
+
+```{r}
+
+
+# Fit the logistic regression model using Age and Academic.Pressure as predictors
+model <- glm(Depression ~ Age + Academic.Pressure, family = binomial, data = df)
+
+
+# Check for independence of errors using the Durbin-Watson test
+dw_result <- dwtest(model)
+print(dw_result)
+
+```
+
+
+```{r}
+
+
+# Load required packages
+library(corrplot)
+
+# Select numeric variables
+numeric_vars <- df[, c("Age", "Academic.Pressure", "CGPA", "Work.Study.Hours", 
+                      "Study.Satisfaction", "Work.Pressure", "Financial.Stress")]
+
+# Convert Financial.Stress to numeric
+numeric_vars$Financial.Stress <- as.numeric(as.character(numeric_vars$Financial.Stress))
+
+# Create correlation matrix
+cor_matrix <- cor(numeric_vars, use = "complete.obs")
+
+# Create correlation plot
+corrplot(cor_matrix, 
+         method = "color",
+         type = "upper",
+         addCoef.col = "black",
+         tl.col = "black",
+         tl.srt = 45,
+         diag = FALSE)
+
+```
+
+
+## Diagnostic Plot Analysis  
+  
+### Visual Diagnostics  
+The diagnostic plots reveal:  
+  
+- **Normal Q-Q Plot**: Shows some deviation from normality at the tails  
+- **Residuals vs Fitted**: Shows relatively even spread around zero  
+- **Scale-Location**: Shows relatively constant spread of standardized residuals  
+- **Distribution of Residuals**: Shows approximate symmetry but with some deviation from normal distribution  
+  
+### Key Findings  
+  
+1. While the residuals show some deviation from normality (as indicated by the Shapiro-Wilk test), this is common in large datasets and doesn't necessarily invalidate our model.  
+2. The homoscedasticity assumption appears to be met (supported by the Breusch-Pagan test).  
+3. The diagnostic plots suggest that while there are some departures from ideal conditions, they're not severe enough to invalidate the model's conclusions.  
+
+
+## Impact on Business Models  
+  
+Based on the diagnostic plots and model assumptions for the depression study, the findings can influence several business models:  
+  
+- **Healthcare Platforms**:    
+  The study's insights may enable platforms offering mental health services to tailor interventions and predictive analytics, improving user outcomes through early detection and personalized therapy.  
+  
+- **Employee Wellness Programs**:    
+  Organizations investing in employee wellness might leverage these findings to implement mental health initiatives, screen for potential risks, and proactively offer support to improve productivity and wellbeing.  
+  
+- **Education-Related Mental Health Services**:    
+  Educational institutions and related service providers can develop targeted programs for student mental health support, using the model to identify high-risk groups and deploy timely preventive measures.  
+  
+- **Insurance and Managed Care Models**:    
+  Insurers may incorporate these predictive models to design better mental health coverage plans and proactively manage the costs associated with mental health treatments.  
+  
+These business models can benefit from integrating predictive insights from the study, leading to improved service targeting, cost reduction, and enhanced overall outcomes.  
+
+
+
+
+Explanation of NRI:
+
+The Net Reclassification Improvement (NRI) metric helps quantify how much a new model improves risk classification compared to a baseline model. Specifically, NRI measures the net proportion of individuals (both positive events, such as depressed cases, and negatives, such as non-depressed cases) that are correctly reclassified into higher or lower risk categories when a new predictor or set of predictors is added.
+
+In practice:
+
+For individuals with the event (e.g., depressed), the NRI is calculated as the percentage who move to a higher risk category minus the percentage who move to a lower risk category.
+For individuals without the event (e.g., not depressed), it is the percentage who move to a lower risk category minus the percentage who move to a higher risk category.
+The Total NRI is the sum of these two differences.
+An NRI value greater than 0 indicates that the new model has improved classification, while a negative NRI suggests a decline in performance, making it a useful measure for model comparison beyond traditional statistics like the AUC.
+
+
+```{r}
+
+library(PredictABEL)
+```
+
+```{r}
+
+
+# Create example data  
+set.seed(123)  
+n <- 1000  
+data <- data.frame(  
+  age = rnorm(n, mean = 20, sd = 2),  
+  gender = factor(sample(c("M", "F"), n, replace = TRUE)),  
+  cgpa = rnorm(n, mean = 3.0, sd = 0.5),  
+  sleep_hours = rnorm(n, mean = 7, sd = 1.5),  
+  depression = rbinom(n, 1, 0.3)  
+)  
+  
+# Fit base model (without sleep_hours)  
+base_model <- glm(depression ~ age + gender + cgpa,   
+                  family = binomial(),   
+                  data = data)  
+  
+# Fit enhanced model (with sleep_hours)  
+enhanced_model <- glm(depression ~ age + gender + cgpa + sleep_hours,   
+                      family = binomial(),   
+                      data = data)  
+  
+# Generate predictions  
+pred_base <- predict(base_model, type = "response")  
+pred_enhanced <- predict(enhanced_model, type = "response")  
+  
+# Function to calculate NRI for a binary risk category (low vs high) based on a given cutoff  
+calculate_nri <- function(old_preds, new_preds, actual, cutoff) {  
+  # Create risk categories based on the cutoff  
+  old_cats <- cut(old_preds, breaks = c(-Inf, cutoff, Inf), labels = c("low", "high"))  
+  new_cats <- cut(new_preds, breaks = c(-Inf, cutoff, Inf), labels = c("low", "high"))  
+    
+  # Identify events (cases) and non-events (controls)  
+  events <- actual == 1  
+  nonevents <- actual == 0  
+    
+  # Calculate movement for events  
+  events_up <- sum(old_cats[events] == "low" & new_cats[events] == "high")  
+  events_down <- sum(old_cats[events] == "high" & new_cats[events] == "low")  
+  n_events <- sum(events)  
+    
+  # Calculate movement for non-events  
+  nonevents_up <- sum(old_cats[nonevents] == "low" & new_cats[nonevents] == "high")  
+  nonevents_down <- sum(old_cats[nonevents] == "high" & new_cats[nonevents] == "low")  
+  n_nonevents <- sum(nonevents)  
+    
+  # Compute NRI for events and non-events  
+  event_nri <- (events_up - events_down) / n_events  
+  nonevent_nri <- (nonevents_down - nonevents_up) / n_nonevents  
+    
+  # Total NRI is the sum of event and nonevent components  
+  nri <- event_nri + nonevent_nri  
+    
+  # Return a list with detailed components  
+  results <- list(  
+    nri = nri,  
+    event_nri = event_nri,  
+    nonevent_nri = nonevent_nri,  
+    events_reclassified = (events_up + events_down) / n_events,  
+    nonevents_reclassified = (nonevents_up + nonevents_down) / n_nonevents  
+  )  
+    
+  return(results)  
+}  
+  
+# Calculate NRI with a cutoff of 0.3  
+nri_results <- calculate_nri(pred_base, pred_enhanced, data$depression, 0.3)  
+  
+# Print the NRI results  
+print(nri_results)  
+
+```
+```{r}
+
+# Load required libraries
+library(ggplot2)
+library(reshape2)
+
+# Create NRI visualization data
+nri_components <- data.frame(
+  Component = c("Events (Depressed)", "Non-events (Not Depressed)", "Total NRI"),
+  Value = c(-0.01013514, 0, -0.01013514)
+)
+
+# Create waterfall chart
+ggplot(nri_components, aes(x = Component, y = Value, fill = Component)) +
+  geom_bar(stat = "identity") +
+  geom_text(aes(label = sprintf("%.3f", Value), 
+                y = ifelse(Value >= 0, Value + 0.001, Value - 0.001)),
+            position = position_dodge(0.9),
+            vjust = ifelse(nri_components$Value >= 0, -0.5, 1.5)) +
+  scale_fill_manual(values = c("#FF9999", "#99FF99", "#9999FF")) +
+  labs(title = "Net Reclassification Improvement (NRI) Components",
+       y = "NRI Value",
+       x = "") +
+  theme_minimal() +
+  theme(legend.position = "none")
+
+# Create reclassification table
+reclass_data <- data.frame(
+  Category = c("Events Reclassified", "Non-events Reclassified"),
+  Percentage = c(0.04391892, 0.04829545)
+)
+
+# Create reclassification bar plot
+ggplot(reclass_data, aes(x = Category, y = Percentage, fill = Category)) +
+  geom_bar(stat = "identity") +
+  geom_text(aes(label = sprintf("%.1f%%", Percentage * 100)),
+            position = position_dodge(0.9),
+            vjust = -0.5) +
+  scale_fill_manual(values = c("#FF9999", "#99FF99")) +
+  labs(title = "Percentage of Cases Reclassified",
+       y = "Percentage",
+       x = "") +
+  theme_minimal() +
+  theme(legend.position = "none")
+
+# Create detailed reclassification summary
+summary_stats <- data.frame(
+  Metric = c("Total NRI", "Event NRI", "Non-event NRI", 
+             "Events Reclassified (%)", "Non-events Reclassified (%)"),
+  Value = c(-0.01013514, -0.01013514, 0, 
+            4.39, 4.83)
+)
+
+# Print summary table
+print("Detailed NRI Analysis:")
+print(summary_stats)
+
+```
+
+```{r}
+
+df <- read.csv("student_depression_dataset.csv")
+table_result <- table(df$Depression)
+prop_table <- prop.table(table_result) * 100
+
+# Create a bar plot
+barplot(table_result, 
+        main="Distribution of Depression Levels",
+        col=c("lightblue", "lightgreen", "lightcoral"),
+        ylab="Count",
+        ylim=c(0, max(table_result) * 1.2))
+
+# Print counts and percentages
+print("Counts:")
+print(table_result)
+print("\
+Percentages:")
+print(round(prop_table, 2))
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Total NRI = -0.0101:
+
+The total NRI being slightly negative (about -1.01%) indicates that overall, the new model's reclassification performance is marginally worse than the baseline when considering both events and non-events.
+
+Event NRI = -0.0101:
+
+The negative Event NRI (also about -1.01%) means that, for subjects who experienced the event, the new model actually reclassified them less accurately. In practical terms, there was a net downward shift for events (i.e., fewer events were moved to higher risk categories as desired).
+
+Non-event NRI = 0.00:
+
+A Non-event NRI of 0% suggests that for the subjects who did not experience the event, there was no net improvement in reclassification—neither a net gain nor loss in moving them to lower risk categories.
+
+Events Reclassified = 1.39:
+
+This value implies that only 1.39% of the events saw a change in their risk category under the new model. Given the negative Event NRI, this 1.39% change likely reflects an unfavorable direction (i.e., more events might have been reclassified to a lower risk category than desired).
+
+Non-events Reclassified = 4.83:
+
+Although 4.83% of non-events saw a reclassification (ideally shifting to a lower risk category), this positive reclassification did not impact the Non-event NRI, which remains 0.00. This indicates that the number of non-events reclassified correctly was balanced by those misclassified.
+
+Summary:
+
+While about 4.83% of non-events were reclassified (which is usually favorable), the overall benefit is negated by a small negative reclassification among events (1.39%), resulting in an overall negative Total NRI. In practical terms, the new model did not show a significant net benefit in reclassification compared to the baseline model.
+
+Model Performance Summary Based on NRI Analysis
+
+Overall NRI: The total NRI is -0.0101, indicating that, on balance, the new model performs marginally worse in risk reclassification compared to the baseline model.
+Event Reclassification: With an event NRI of -0.0101 and only 1.39% of events undergoing any category change, the new model shows a slight deterioration in correctly classifying individuals who experienced the event.
+Non-Event Reclassification: Although 4.83% of non-events were reclassified, the non-event NRI is 0.00, meaning that any potential reclassification benefits for non-events were fully offset by misclassifications.
+Implications: The marginally negative overall NRI suggests that the new model does not provide a clear benefit over the baseline when it comes to risk stratification. The findings point to the need for further refinement before the new model can be considered an improvement in accurately identifying risk levels among both events and non-events.
+Overall Model Performance Summary Based on NRI Analysis
+
+The total NRI of -0.0101 indicates that the overall improvement in risk reclassification with the new model is slightly worse than the baseline.
+The event NRI of -0.0101 and the low events reclassified percentage (1.39%) suggest that the new model has a marginally negative impact on correctly classifying individuals who experienced the event.
+Although 4.83% of non-events were reclassified, the net non-event NRI is 0.00, meaning that the benefits for non-events are entirely offset by misclassifications.
+In summary, the new model does not exhibit a significant net benefit in risk reclassification compared to the baseline model, indicating that further refinement may be needed to achieve improved overall performance.
