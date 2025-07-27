@@ -1,0 +1,5 @@
+---
+title: "Business and Data Analytics"
+---
+
+A collection of data projects from my journey through my undergraduate and graduate degree programs.
