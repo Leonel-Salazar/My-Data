@@ -1,1 +1,1 @@
-[# My website and data analysis portfolio](https://github.com/Leonel-Salazar/My-Data.git)
+[# My website and data analysis portfolio](https://leonel-salazar.github.io/My-Data/)
