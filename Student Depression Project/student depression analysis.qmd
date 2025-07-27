@@ -4,8 +4,16 @@ author: "Leonel Salazar"
 format: html
 ---
 
-## Quarto
+
 ```{r}
+
+knitr::opts_chunk$set(echo = FALSE)
+
+```
+
+
+## Quarto
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
 library(tidyverse)
 library(here)
 library(lmtest)
@@ -15,7 +23,7 @@ library(here)
 ```
 
 
-```{r}
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
 
 # Read the dataset
 df <- read.csv("student_depression_dataset.csv")
@@ -24,7 +32,7 @@ print(str(df))
 
 ```
 
-```{r}
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
 
 # Remove any rows with NA values
 df_clean <- na.omit(df)
@@ -65,7 +73,7 @@ plot(roc_curve, main="ROC Curve")
 ```
 
 
-```{r}
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
 
 # Calculate odds ratios by exponentiating the logistic regression coefficients  
 odds_ratios <- exp(coef(logistic_model))  
@@ -118,7 +126,7 @@ print(conf_int)
 - **Non-significant Predictors:**  
   - **Gender (Male vs. Female) and Financial Stress levels (1 to 5):** Their 95% confidence intervals include 1, implying no statistically significant effect.  
 
-```{r}
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
 
 # Take a random sample of 5000 observations for normality testing
 set.seed(123)
@@ -167,7 +175,7 @@ lines(lowess(fitted_sample, sqrt_abs_res), col="red")
 
 ```
 
-```{r}
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
 
 # Test for homoscedasticity using Breusch-Pagan test
 library(lmtest)
@@ -211,7 +219,7 @@ print(bp_test)
 ```
 
 
-```{r}
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
 
 # Create confusion matrix visualization
 library(ggplot2)
@@ -286,7 +294,7 @@ boxplot(Age ~ Depression, data = df_clean,
 
 
 
-```{r}
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
 
 library(ggplot2)  
   
@@ -326,7 +334,7 @@ plot_logit_linearity(df, "Age", "Depression")
 
 
 
-```{r}
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
 
 
 # Fit the logistic regression model using Age and Academic.Pressure as predictors
@@ -340,8 +348,7 @@ print(dw_result)
 ```
 
 
-```{r}
-
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
 
 # Load required packages
 library(corrplot)
@@ -418,12 +425,12 @@ The Total NRI is the sum of these two differences.
 An NRI value greater than 0 indicates that the new model has improved classification, while a negative NRI suggests a decline in performance, making it a useful measure for model comparison beyond traditional statistics like the AUC.
 
 
-```{r}
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
 
 library(PredictABEL)
 ```
 
-```{r}
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
 
 
 # Create example data  
@@ -497,7 +504,7 @@ nri_results <- calculate_nri(pred_base, pred_enhanced, data$depression, 0.3)
 print(nri_results)  
 
 ```
-```{r}
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
 
 # Load required libraries
 library(ggplot2)
@@ -556,7 +563,7 @@ print(summary_stats)
 
 ```
 
-```{r}
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
 
 df <- read.csv("student_depression_dataset.csv")
 table_result <- table(df$Depression)

@@ -137,7 +137,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="dropdown-text">Honeybee Project</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../Student Depression Project/depression.html">
+    <a class="dropdown-item" href="../Student Depression Project/student depression analysis.html">
  <span class="dropdown-text">Student Depression Analysis</span></a>
   </li>  
     </ul>
@@ -189,77 +189,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(<span class="at">echo =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <section id="quarto" class="level2">
 <h2 class="anchored" data-anchor-id="quarto">Quarto</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: package 'ggplot2' was built under R version 4.3.3</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: package 'tidyr' was built under R version 4.3.3</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: package 'dplyr' was built under R version 4.3.3</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: package 'stringr' was built under R version 4.3.2</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: package 'lubridate' was built under R version 4.3.2</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
-✔ dplyr     1.1.4     ✔ readr     2.1.4
-✔ forcats   1.0.0     ✔ stringr   1.5.1
-✔ ggplot2   3.5.1     ✔ tibble    3.2.1
-✔ lubridate 1.9.3     ✔ tidyr     1.3.1
-✔ purrr     1.0.2     
-── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
-✖ dplyr::filter() masks stats::filter()
-✖ dplyr::lag()    masks stats::lag()
-ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(here)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: package 'here' was built under R version 4.3.3</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>here() starts at C:/Users/Leonel/Desktop/MSDA/My-Data</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lmtest)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: package 'lmtest' was built under R version 4.3.3</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Loading required package: zoo
-
-Attaching package: 'zoo'
-
-The following objects are masked from 'package:base':
-
-    as.Date, as.Date.numeric</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(car)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Loading required package: carData
-
-Attaching package: 'car'
-
-The following object is masked from 'package:dplyr':
-
-    recode
-
-The following object is masked from 'package:purrr':
-
-    some</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(here)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Read the dataset</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"student_depression_dataset.csv"</span>)</span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">head</span>(df))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  id Gender Age          City Profession Academic.Pressure Work.Pressure CGPA
 1  2   Male  33 Visakhapatnam    Student                 5             0 8.97
@@ -290,7 +225,6 @@ The following object is masked from 'package:purrr':
 5              1.0                               No          0
 6              1.0                               No          0</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">str</span>(df))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>'data.frame':   27901 obs. of  18 variables:
  $ id                                   : int  2 8 26 30 32 33 52 56 59 62 ...
@@ -315,96 +249,39 @@ NULL</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Remove any rows with NA values</span></span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>df_clean <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(df)</span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit the model on clean data</span></span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>logistic_model <span class="ot">&lt;-</span> <span class="fu">glm</span>(Depression <span class="sc">~</span> Gender <span class="sc">+</span> Age <span class="sc">+</span> Academic.Pressure <span class="sc">+</span> CGPA <span class="sc">+</span> </span>
-<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>             Study.Satisfaction <span class="sc">+</span> Work.Study.Hours <span class="sc">+</span> Financial.Stress <span class="sc">+</span> </span>
-<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>             <span class="st">`</span><span class="at">Have.you.ever.had.suicidal.thoughts..</span><span class="st">`</span> <span class="sc">+</span> Family.History.of.Mental.Illness,</span>
-<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>             <span class="at">data =</span> df_clean, <span class="at">family =</span> binomial)</span>
-<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Get predictions</span></span>
-<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>predicted_probs <span class="ot">&lt;-</span> <span class="fu">predict</span>(logistic_model, <span class="at">type =</span> <span class="st">'response'</span>)</span>
-<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>predicted_classes <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(predicted_probs <span class="sc">&gt;</span> <span class="fl">0.5</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span>
-<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Create confusion matrix</span></span>
-<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a>conf_matrix <span class="ot">&lt;-</span> <span class="fu">table</span>(<span class="at">Predicted =</span> predicted_classes, <span class="at">Actual =</span> df_clean<span class="sc">$</span>Depression)</span>
-<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="st">"Confusion Matrix:"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "Confusion Matrix:"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(conf_matrix)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>         Actual
 Predicted     0     1
         0  9081  1900
         1  2484 14436</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate accuracy, sensitivity, and specificity</span></span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>accuracy <span class="ot">&lt;-</span> <span class="fu">sum</span>(<span class="fu">diag</span>(conf_matrix))<span class="sc">/</span><span class="fu">sum</span>(conf_matrix)</span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>sensitivity <span class="ot">&lt;-</span> conf_matrix[<span class="dv">2</span>,<span class="dv">2</span>]<span class="sc">/</span>(conf_matrix[<span class="dv">2</span>,<span class="dv">2</span>] <span class="sc">+</span> conf_matrix[<span class="dv">1</span>,<span class="dv">2</span>])</span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>specificity <span class="ot">&lt;-</span> conf_matrix[<span class="dv">1</span>,<span class="dv">1</span>]<span class="sc">/</span>(conf_matrix[<span class="dv">1</span>,<span class="dv">1</span>] <span class="sc">+</span> conf_matrix[<span class="dv">2</span>,<span class="dv">1</span>])</span>
-<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">"Accuracy:"</span>, <span class="fu">round</span>(accuracy, <span class="dv">3</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "Accuracy: 0.843"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">"Sensitivity:"</span>, <span class="fu">round</span>(sensitivity, <span class="dv">3</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "Sensitivity: 0.884"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">"Specificity:"</span>, <span class="fu">round</span>(specificity, <span class="dv">3</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "Specificity: 0.785"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ROC curve</span></span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(pROC)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: package 'pROC' was built under R version 4.3.3</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Type 'citation("pROC")' for a citation.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>
-Attaching package: 'pROC'</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>The following objects are masked from 'package:stats':
-
-    cov, smooth, var</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>roc_curve <span class="ot">&lt;-</span> <span class="fu">roc</span>(df_clean<span class="sc">$</span>Depression, predicted_probs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Setting levels: control = 0, case = 1</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Setting direction: controls &lt; cases</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>auc_value <span class="ot">&lt;-</span> <span class="fu">auc</span>(roc_curve)</span>
-<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">"AUC:"</span>, <span class="fu">round</span>(auc_value, <span class="dv">3</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "AUC: 0.915"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot ROC curve</span></span>
-<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(roc_curve, <span class="at">main=</span><span class="st">"ROC Curve"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="student-depression-analysis_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="student-depression-analysis_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate odds ratios by exponentiating the logistic regression coefficients  </span></span>
-<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>odds_ratios <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="fu">coef</span>(logistic_model))  </span>
-<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="st">"Odds Ratios:"</span>)  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "Odds Ratios:"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(odds_ratios)  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>                             (Intercept) 
                                0.4140814 
@@ -435,16 +312,9 @@ Have.you.ever.had.suicidal.thoughts..Yes
      Family.History.of.Mental.IllnessYes 
                                1.2719489 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate 95% confidence intervals for the odds ratios  </span></span>
-<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>conf_int <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="fu">confint</span>(logistic_model))  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Waiting for profiling to be done...</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="st">"95% Confidence Intervals for Odds Ratios:"</span>)  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "95% Confidence Intervals for Odds Ratios:"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(conf_int)  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>                                               2.5 %     97.5 %
 (Intercept)                               0.01890855  4.4452242
@@ -620,22 +490,9 @@ Family.History.of.Mental.IllnessYes       1.18610520  1.3641044</code></pre>
 </ul></li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Take a random sample of 5000 observations for normality testing</span></span>
-<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
-<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>sample_size <span class="ot">&lt;-</span> <span class="dv">5000</span></span>
-<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a>sample_indices <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="fu">length</span>(<span class="fu">residuals</span>(logistic_model)), sample_size)</span>
-<span id="cb52-5"><a href="#cb52-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-6"><a href="#cb52-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract residuals and fitted values for the sample</span></span>
-<span id="cb52-7"><a href="#cb52-7" aria-hidden="true" tabindex="-1"></a>residuals_sample <span class="ot">&lt;-</span> <span class="fu">residuals</span>(logistic_model, <span class="at">type=</span><span class="st">"deviance"</span>)[sample_indices]</span>
-<span id="cb52-8"><a href="#cb52-8" aria-hidden="true" tabindex="-1"></a>fitted_sample <span class="ot">&lt;-</span> <span class="fu">fitted</span>(logistic_model)[sample_indices]</span>
-<span id="cb52-9"><a href="#cb52-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-10"><a href="#cb52-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Normality Tests on sample</span></span>
-<span id="cb52-11"><a href="#cb52-11" aria-hidden="true" tabindex="-1"></a>shapiro_test <span class="ot">&lt;-</span> <span class="fu">shapiro.test</span>(residuals_sample)</span>
-<span id="cb52-12"><a href="#cb52-12" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="st">"Shapiro-Wilk Test Results (on 5000 sample):"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "Shapiro-Wilk Test Results (on 5000 sample):"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(shapiro_test)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Shapiro-Wilk normality test
@@ -643,79 +500,6 @@ Family.History.of.Mental.IllnessYes       1.18610520  1.3641044</code></pre>
 data:  residuals_sample
 W = 0.97803, p-value &lt; 2.2e-16</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Visual tests for normality</span></span>
-<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>))</span>
-<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Q-Q Plot</span></span>
-<span id="cb56-5"><a href="#cb56-5" aria-hidden="true" tabindex="-1"></a><span class="fu">qqnorm</span>(residuals_sample, <span class="at">main=</span><span class="st">"Normal Q-Q Plot"</span>)</span>
-<span id="cb56-6"><a href="#cb56-6" aria-hidden="true" tabindex="-1"></a><span class="fu">qqline</span>(residuals_sample, <span class="at">col=</span><span class="st">"red"</span>)</span>
-<span id="cb56-7"><a href="#cb56-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb56-8"><a href="#cb56-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Histogram</span></span>
-<span id="cb56-9"><a href="#cb56-9" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(residuals_sample, </span>
-<span id="cb56-10"><a href="#cb56-10" aria-hidden="true" tabindex="-1"></a>     <span class="at">main=</span><span class="st">"Histogram of Residuals"</span>, </span>
-<span id="cb56-11"><a href="#cb56-11" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab=</span><span class="st">"Residuals"</span>, </span>
-<span id="cb56-12"><a href="#cb56-12" aria-hidden="true" tabindex="-1"></a>     <span class="at">freq=</span><span class="cn">FALSE</span>,</span>
-<span id="cb56-13"><a href="#cb56-13" aria-hidden="true" tabindex="-1"></a>     <span class="at">breaks=</span><span class="dv">30</span>)</span>
-<span id="cb56-14"><a href="#cb56-14" aria-hidden="true" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">dnorm</span>(x, <span class="at">mean=</span><span class="fu">mean</span>(residuals_sample), <span class="at">sd=</span><span class="fu">sd</span>(residuals_sample)), </span>
-<span id="cb56-15"><a href="#cb56-15" aria-hidden="true" tabindex="-1"></a>      <span class="at">add=</span><span class="cn">TRUE</span>, <span class="at">col=</span><span class="st">"red"</span>)</span>
-<span id="cb56-16"><a href="#cb56-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb56-17"><a href="#cb56-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Residuals vs Fitted plot</span></span>
-<span id="cb56-18"><a href="#cb56-18" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(fitted_sample, residuals_sample,</span>
-<span id="cb56-19"><a href="#cb56-19" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab=</span><span class="st">"Fitted Values"</span>, </span>
-<span id="cb56-20"><a href="#cb56-20" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab=</span><span class="st">"Residuals"</span>,</span>
-<span id="cb56-21"><a href="#cb56-21" aria-hidden="true" tabindex="-1"></a>     <span class="at">main=</span><span class="st">"Residuals vs Fitted"</span>)</span>
-<span id="cb56-22"><a href="#cb56-22" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h=</span><span class="dv">0</span>, <span class="at">col=</span><span class="st">"red"</span>)</span>
-<span id="cb56-23"><a href="#cb56-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb56-24"><a href="#cb56-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Scale-Location Plot</span></span>
-<span id="cb56-25"><a href="#cb56-25" aria-hidden="true" tabindex="-1"></a>sqrt_abs_res <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="fu">abs</span>(residuals_sample))</span>
-<span id="cb56-26"><a href="#cb56-26" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(fitted_sample, sqrt_abs_res,</span>
-<span id="cb56-27"><a href="#cb56-27" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab=</span><span class="st">"Fitted Values"</span>,</span>
-<span id="cb56-28"><a href="#cb56-28" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab=</span><span class="st">"√|Standardized Residuals|"</span>,</span>
-<span id="cb56-29"><a href="#cb56-29" aria-hidden="true" tabindex="-1"></a>     <span class="at">main=</span><span class="st">"Scale-Location Plot"</span>)</span>
-<span id="cb56-30"><a href="#cb56-30" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="fu">lowess</span>(fitted_sample, sqrt_abs_res), <span class="at">col=</span><span class="st">"red"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="student-depression-analysis_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Test for homoscedasticity using Breusch-Pagan test</span></span>
-<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lmtest)</span>
-<span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a>residuals_squared <span class="ot">&lt;-</span> <span class="fu">residuals</span>(logistic_model, <span class="at">type=</span><span class="st">"pearson"</span>)<span class="sc">^</span><span class="dv">2</span></span>
-<span id="cb57-4"><a href="#cb57-4" aria-hidden="true" tabindex="-1"></a>bp_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(residuals_squared <span class="sc">~</span> <span class="fu">fitted</span>(logistic_model))</span>
-<span id="cb57-5"><a href="#cb57-5" aria-hidden="true" tabindex="-1"></a>bp_test <span class="ot">&lt;-</span> <span class="fu">bptest</span>(bp_model)</span>
-<span id="cb57-6"><a href="#cb57-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb57-7"><a href="#cb57-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Create diagnostic plots</span></span>
-<span id="cb57-8"><a href="#cb57-8" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>))</span>
-<span id="cb57-9"><a href="#cb57-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb57-10"><a href="#cb57-10" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Residuals vs Fitted</span></span>
-<span id="cb57-11"><a href="#cb57-11" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">fitted</span>(logistic_model), <span class="fu">residuals</span>(logistic_model, <span class="at">type=</span><span class="st">"pearson"</span>),</span>
-<span id="cb57-12"><a href="#cb57-12" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab=</span><span class="st">"Fitted values"</span>,</span>
-<span id="cb57-13"><a href="#cb57-13" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab=</span><span class="st">"Pearson residuals"</span>,</span>
-<span id="cb57-14"><a href="#cb57-14" aria-hidden="true" tabindex="-1"></a>     <span class="at">main=</span><span class="st">"Residuals vs Fitted"</span>)</span>
-<span id="cb57-15"><a href="#cb57-15" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h=</span><span class="dv">0</span>, <span class="at">col=</span><span class="st">"red"</span>)</span>
-<span id="cb57-16"><a href="#cb57-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb57-17"><a href="#cb57-17" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Scale-Location Plot</span></span>
-<span id="cb57-18"><a href="#cb57-18" aria-hidden="true" tabindex="-1"></a>sqrt_abs_res <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="fu">abs</span>(<span class="fu">residuals</span>(logistic_model, <span class="at">type=</span><span class="st">"pearson"</span>)))</span>
-<span id="cb57-19"><a href="#cb57-19" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">fitted</span>(logistic_model), sqrt_abs_res,</span>
-<span id="cb57-20"><a href="#cb57-20" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab=</span><span class="st">"Fitted values"</span>,</span>
-<span id="cb57-21"><a href="#cb57-21" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab=</span><span class="st">"√|Standardized residuals|"</span>,</span>
-<span id="cb57-22"><a href="#cb57-22" aria-hidden="true" tabindex="-1"></a>     <span class="at">main=</span><span class="st">"Scale-Location"</span>)</span>
-<span id="cb57-23"><a href="#cb57-23" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="fu">lowess</span>(<span class="fu">fitted</span>(logistic_model), sqrt_abs_res), <span class="at">col=</span><span class="st">"red"</span>)</span>
-<span id="cb57-24"><a href="#cb57-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb57-25"><a href="#cb57-25" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Residuals Distribution</span></span>
-<span id="cb57-26"><a href="#cb57-26" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(<span class="fu">residuals</span>(logistic_model, <span class="at">type=</span><span class="st">"pearson"</span>),</span>
-<span id="cb57-27"><a href="#cb57-27" aria-hidden="true" tabindex="-1"></a>     <span class="at">main=</span><span class="st">"Distribution of Residuals"</span>,</span>
-<span id="cb57-28"><a href="#cb57-28" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab=</span><span class="st">"Pearson Residuals"</span>,</span>
-<span id="cb57-29"><a href="#cb57-29" aria-hidden="true" tabindex="-1"></a>     <span class="at">freq=</span><span class="cn">FALSE</span>)</span>
-<span id="cb57-30"><a href="#cb57-30" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="fu">density</span>(<span class="fu">residuals</span>(logistic_model, <span class="at">type=</span><span class="st">"pearson"</span>)), <span class="at">col=</span><span class="st">"red"</span>)</span>
-<span id="cb57-31"><a href="#cb57-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb57-32"><a href="#cb57-32" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. QQ Plot</span></span>
-<span id="cb57-33"><a href="#cb57-33" aria-hidden="true" tabindex="-1"></a><span class="fu">qqnorm</span>(<span class="fu">residuals</span>(logistic_model, <span class="at">type=</span><span class="st">"pearson"</span>))</span>
-<span id="cb57-34"><a href="#cb57-34" aria-hidden="true" tabindex="-1"></a><span class="fu">qqline</span>(<span class="fu">residuals</span>(logistic_model, <span class="at">type=</span><span class="st">"pearson"</span>), <span class="at">col=</span><span class="st">"red"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -723,12 +507,18 @@ W = 0.97803, p-value &lt; 2.2e-16</code></pre>
 </figure>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Print Breusch-Pagan test results</span></span>
-<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="st">"Breusch-Pagan Test for Homoscedasticity:"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="student-depression-analysis_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "Breusch-Pagan Test for Homoscedasticity:"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(bp_test)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     studentized Breusch-Pagan test
@@ -738,138 +528,6 @@ BP = 0.3459, df = 1, p-value = 0.5564</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create confusion matrix visualization</span></span>
-<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb62-4"><a href="#cb62-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Get predicted probabilities and classes</span></span>
-<span id="cb62-5"><a href="#cb62-5" aria-hidden="true" tabindex="-1"></a>pred_prob <span class="ot">&lt;-</span> <span class="fu">predict</span>(logistic_model, <span class="at">type =</span> <span class="st">"response"</span>)</span>
-<span id="cb62-6"><a href="#cb62-6" aria-hidden="true" tabindex="-1"></a>pred_class <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(pred_prob <span class="sc">&gt;</span> <span class="fl">0.5</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span>
-<span id="cb62-7"><a href="#cb62-7" aria-hidden="true" tabindex="-1"></a>conf_matrix <span class="ot">&lt;-</span> <span class="fu">table</span>(<span class="at">Predicted =</span> pred_class, <span class="at">Actual =</span> df_clean<span class="sc">$</span>Depression)</span>
-<span id="cb62-8"><a href="#cb62-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb62-9"><a href="#cb62-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert confusion matrix to data frame for plotting</span></span>
-<span id="cb62-10"><a href="#cb62-10" aria-hidden="true" tabindex="-1"></a>conf_df <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(conf_matrix)</span>
-<span id="cb62-11"><a href="#cb62-11" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(conf_df) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Predicted"</span>, <span class="st">"Actual"</span>, <span class="st">"Freq"</span>)</span>
-<span id="cb62-12"><a href="#cb62-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb62-13"><a href="#cb62-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot confusion matrix heatmap</span></span>
-<span id="cb62-14"><a href="#cb62-14" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(conf_df, <span class="fu">aes</span>(<span class="at">x =</span> Actual, <span class="at">y =</span> Predicted, <span class="at">fill =</span> Freq)) <span class="sc">+</span></span>
-<span id="cb62-15"><a href="#cb62-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_tile</span>() <span class="sc">+</span></span>
-<span id="cb62-16"><a href="#cb62-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> Freq), <span class="at">color =</span> <span class="st">"white"</span>, <span class="at">size =</span> <span class="dv">10</span>) <span class="sc">+</span></span>
-<span id="cb62-17"><a href="#cb62-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_gradient</span>(<span class="at">low =</span> <span class="st">"darkblue"</span>, <span class="at">high =</span> <span class="st">"red"</span>) <span class="sc">+</span></span>
-<span id="cb62-18"><a href="#cb62-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb62-19"><a href="#cb62-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Confusion Matrix Heatmap"</span>,</span>
-<span id="cb62-20"><a href="#cb62-20" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Actual Depression"</span>,</span>
-<span id="cb62-21"><a href="#cb62-21" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Predicted Depression"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="student-depression-analysis_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ROC Curve</span></span>
-<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(pROC)</span>
-<span id="cb63-3"><a href="#cb63-3" aria-hidden="true" tabindex="-1"></a>roc_obj <span class="ot">&lt;-</span> <span class="fu">roc</span>(df_clean<span class="sc">$</span>Depression, pred_prob)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Setting levels: control = 0, case = 1</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Setting direction: controls &lt; cases</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(roc_obj, <span class="at">main =</span> <span class="st">"ROC Curve"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="student-depression-analysis_files/figure-html/unnamed-chunk-7-2.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a>auc_value <span class="ot">&lt;-</span> <span class="fu">auc</span>(roc_obj)</span>
-<span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb67-3"><a href="#cb67-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a sample dataframe df_clean if not already defined</span></span>
-<span id="cb67-4"><a href="#cb67-4" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">exists</span>(<span class="st">'df_clean'</span>)) {</span>
-<span id="cb67-5"><a href="#cb67-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
-<span id="cb67-6"><a href="#cb67-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Creating dummy columns for demonstration</span></span>
-<span id="cb67-7"><a href="#cb67-7" aria-hidden="true" tabindex="-1"></a>  df_clean <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb67-8"><a href="#cb67-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">Academic.Pressure =</span> <span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="at">mean=</span><span class="dv">50</span>, <span class="at">sd=</span><span class="dv">10</span>),</span>
-<span id="cb67-9"><a href="#cb67-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">Study.Satisfaction =</span> <span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="at">mean=</span><span class="dv">70</span>, <span class="at">sd=</span><span class="dv">15</span>),</span>
-<span id="cb67-10"><a href="#cb67-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">Work.Study.Hours =</span> <span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="at">mean=</span><span class="dv">30</span>, <span class="at">sd=</span><span class="dv">5</span>),</span>
-<span id="cb67-11"><a href="#cb67-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">Age =</span> <span class="fu">sample</span>(<span class="dv">18</span><span class="sc">:</span><span class="dv">30</span>, <span class="dv">100</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb67-12"><a href="#cb67-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">Depression =</span> <span class="fu">sample</span>(<span class="fu">c</span>(<span class="st">'Low'</span>, <span class="st">'Medium'</span>, <span class="st">'High'</span>), <span class="dv">100</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb67-13"><a href="#cb67-13" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb67-14"><a href="#cb67-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="fu">head</span>(df_clean))</span>
-<span id="cb67-15"><a href="#cb67-15" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> {</span>
-<span id="cb67-16"><a href="#cb67-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">'df_clean already exists'</span>)</span>
-<span id="cb67-17"><a href="#cb67-17" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] "df_clean already exists"</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Boxplots for key numerical predictors with colors</span></span>
-<span id="cb69-2"><a href="#cb69-2" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
-<span id="cb69-3"><a href="#cb69-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb69-4"><a href="#cb69-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Academic Pressure vs Depression</span></span>
-<span id="cb69-5"><a href="#cb69-5" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(Academic.Pressure <span class="sc">~</span> Depression, <span class="at">data =</span> df_clean, </span>
-<span id="cb69-6"><a href="#cb69-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">main =</span> <span class="st">"Academic Pressure vs Depression"</span>, </span>
-<span id="cb69-7"><a href="#cb69-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">col =</span> <span class="st">"lightblue"</span>)</span>
-<span id="cb69-8"><a href="#cb69-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb69-9"><a href="#cb69-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Study Satisfaction vs Depression</span></span>
-<span id="cb69-10"><a href="#cb69-10" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(Study.Satisfaction <span class="sc">~</span> Depression, <span class="at">data =</span> df_clean, </span>
-<span id="cb69-11"><a href="#cb69-11" aria-hidden="true" tabindex="-1"></a>        <span class="at">main =</span> <span class="st">"Study Satisfaction vs Depression"</span>, </span>
-<span id="cb69-12"><a href="#cb69-12" aria-hidden="true" tabindex="-1"></a>        <span class="at">col =</span> <span class="st">"lightgreen"</span>)</span>
-<span id="cb69-13"><a href="#cb69-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb69-14"><a href="#cb69-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Work/Study Hours vs Depression</span></span>
-<span id="cb69-15"><a href="#cb69-15" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(Work.Study.Hours <span class="sc">~</span> Depression, <span class="at">data =</span> df_clean, </span>
-<span id="cb69-16"><a href="#cb69-16" aria-hidden="true" tabindex="-1"></a>        <span class="at">main =</span> <span class="st">"Work/Study Hours vs Depression"</span>, </span>
-<span id="cb69-17"><a href="#cb69-17" aria-hidden="true" tabindex="-1"></a>        <span class="at">col =</span> <span class="st">"lightcoral"</span>)</span>
-<span id="cb69-18"><a href="#cb69-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb69-19"><a href="#cb69-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Age vs Depression</span></span>
-<span id="cb69-20"><a href="#cb69-20" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(Age <span class="sc">~</span> Depression, <span class="at">data =</span> df_clean, </span>
-<span id="cb69-21"><a href="#cb69-21" aria-hidden="true" tabindex="-1"></a>        <span class="at">main =</span> <span class="st">"Age vs Depression"</span>, </span>
-<span id="cb69-22"><a href="#cb69-22" aria-hidden="true" tabindex="-1"></a>        <span class="at">col =</span> <span class="st">"plum"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="student-depression-analysis_files/figure-html/unnamed-chunk-7-3.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)  </span>
-<span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb70-3"><a href="#cb70-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the data into dataframe 'df'  </span></span>
-<span id="cb70-4"><a href="#cb70-4" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"student_depression_dataset.csv"</span>)  </span>
-<span id="cb70-5"><a href="#cb70-5" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb70-6"><a href="#cb70-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a function to plot empirical logit vs. continuous predictor  </span></span>
-<span id="cb70-7"><a href="#cb70-7" aria-hidden="true" tabindex="-1"></a>plot_logit_linearity <span class="ot">&lt;-</span> <span class="cf">function</span>(data, continuous_var, dependent_var) {  </span>
-<span id="cb70-8"><a href="#cb70-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Create decile bins for the continuous variable  </span></span>
-<span id="cb70-9"><a href="#cb70-9" aria-hidden="true" tabindex="-1"></a>  breaks <span class="ot">&lt;-</span> <span class="fu">quantile</span>(data[[continuous_var]], <span class="at">probs =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="at">length.out =</span> <span class="dv">11</span>), <span class="at">na.rm =</span> <span class="cn">TRUE</span>)  </span>
-<span id="cb70-10"><a href="#cb70-10" aria-hidden="true" tabindex="-1"></a>  data<span class="sc">$</span>bins <span class="ot">&lt;-</span> <span class="fu">cut</span>(data[[continuous_var]], <span class="at">breaks =</span> breaks, <span class="at">include.lowest =</span> <span class="cn">TRUE</span>)  </span>
-<span id="cb70-11"><a href="#cb70-11" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb70-12"><a href="#cb70-12" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Aggregate to calculate the mean of the predictor and the proportion of positive outcomes per bin  </span></span>
-<span id="cb70-13"><a href="#cb70-13" aria-hidden="true" tabindex="-1"></a>  grouped <span class="ot">&lt;-</span> <span class="fu">aggregate</span>(data[<span class="fu">c</span>(continuous_var, dependent_var)],  </span>
-<span id="cb70-14"><a href="#cb70-14" aria-hidden="true" tabindex="-1"></a>                       <span class="at">by =</span> <span class="fu">list</span>(<span class="at">bins =</span> data<span class="sc">$</span>bins), <span class="at">FUN =</span> mean, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)  </span>
-<span id="cb70-15"><a href="#cb70-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">names</span>(grouped)[<span class="dv">2</span><span class="sc">:</span><span class="dv">3</span>] <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"mean_predictor"</span>, <span class="st">"proportion"</span>)  </span>
-<span id="cb70-16"><a href="#cb70-16" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb70-17"><a href="#cb70-17" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Compute empirical logit; add a small constant to avoid division by zero issues  </span></span>
-<span id="cb70-18"><a href="#cb70-18" aria-hidden="true" tabindex="-1"></a>  grouped<span class="sc">$</span>logit <span class="ot">&lt;-</span> <span class="fu">log</span>((grouped<span class="sc">$</span>proportion <span class="sc">+</span> <span class="fl">0.0001</span>) <span class="sc">/</span> (<span class="dv">1</span> <span class="sc">-</span> grouped<span class="sc">$</span>proportion <span class="sc">+</span> <span class="fl">0.0001</span>))  </span>
-<span id="cb70-19"><a href="#cb70-19" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb70-20"><a href="#cb70-20" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Create plot to visually inspect the relationship  </span></span>
-<span id="cb70-21"><a href="#cb70-21" aria-hidden="true" tabindex="-1"></a>  p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(grouped, <span class="fu">aes</span>(<span class="at">x =</span> mean_predictor, <span class="at">y =</span> logit)) <span class="sc">+</span>  </span>
-<span id="cb70-22"><a href="#cb70-22" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span>  </span>
-<span id="cb70-23"><a href="#cb70-23" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"loess"</span>, <span class="at">se =</span> <span class="cn">TRUE</span>, <span class="at">col =</span> <span class="st">"blue"</span>) <span class="sc">+</span>  </span>
-<span id="cb70-24"><a href="#cb70-24" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_minimal</span>() <span class="sc">+</span>  </span>
-<span id="cb70-25"><a href="#cb70-25" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">title =</span> <span class="fu">paste</span>(<span class="st">"Linearity of Logit for"</span>, continuous_var),  </span>
-<span id="cb70-26"><a href="#cb70-26" aria-hidden="true" tabindex="-1"></a>         <span class="at">x =</span> continuous_var,  </span>
-<span id="cb70-27"><a href="#cb70-27" aria-hidden="true" tabindex="-1"></a>         <span class="at">y =</span> <span class="st">"Empirical Logit"</span>)  </span>
-<span id="cb70-28"><a href="#cb70-28" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb70-29"><a href="#cb70-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(p)  </span>
-<span id="cb70-30"><a href="#cb70-30" aria-hidden="true" tabindex="-1"></a>}  </span>
-<span id="cb70-31"><a href="#cb70-31" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb70-32"><a href="#cb70-32" aria-hidden="true" tabindex="-1"></a><span class="co"># Example usage assuming 'age' is your continuous predictor and 'depression' as the outcome variable  </span></span>
-<span id="cb70-33"><a href="#cb70-33" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_logit_linearity</span>(df, <span class="st">"Age"</span>, <span class="st">"Depression"</span>)  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
-</div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -877,15 +535,34 @@ BP = 0.3459, df = 1, p-value = 0.5564</code></pre>
 </figure>
 </div>
 </div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="student-depression-analysis_files/figure-html/unnamed-chunk-8-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "df_clean already exists"</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="student-depression-analysis_files/figure-html/unnamed-chunk-8-3.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb72"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit the logistic regression model using Age and Academic.Pressure as predictors</span></span>
-<span id="cb72-2"><a href="#cb72-2" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">glm</span>(Depression <span class="sc">~</span> Age <span class="sc">+</span> Academic.Pressure, <span class="at">family =</span> binomial, <span class="at">data =</span> df)</span>
-<span id="cb72-3"><a href="#cb72-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb72-4"><a href="#cb72-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb72-5"><a href="#cb72-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Check for independence of errors using the Durbin-Watson test</span></span>
-<span id="cb72-6"><a href="#cb72-6" aria-hidden="true" tabindex="-1"></a>dw_result <span class="ot">&lt;-</span> <span class="fu">dwtest</span>(model)</span>
-<span id="cb72-7"><a href="#cb72-7" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(dw_result)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="student-depression-analysis_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Durbin-Watson test
@@ -896,38 +573,10 @@ alternative hypothesis: true autocorrelation is greater than 0</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb74"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load required packages</span></span>
-<span id="cb74-2"><a href="#cb74-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(corrplot)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: package 'corrplot' was built under R version 4.3.3</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>corrplot 0.94 loaded</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb77"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Select numeric variables</span></span>
-<span id="cb77-2"><a href="#cb77-2" aria-hidden="true" tabindex="-1"></a>numeric_vars <span class="ot">&lt;-</span> df[, <span class="fu">c</span>(<span class="st">"Age"</span>, <span class="st">"Academic.Pressure"</span>, <span class="st">"CGPA"</span>, <span class="st">"Work.Study.Hours"</span>, </span>
-<span id="cb77-3"><a href="#cb77-3" aria-hidden="true" tabindex="-1"></a>                      <span class="st">"Study.Satisfaction"</span>, <span class="st">"Work.Pressure"</span>, <span class="st">"Financial.Stress"</span>)]</span>
-<span id="cb77-4"><a href="#cb77-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb77-5"><a href="#cb77-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert Financial.Stress to numeric</span></span>
-<span id="cb77-6"><a href="#cb77-6" aria-hidden="true" tabindex="-1"></a>numeric_vars<span class="sc">$</span>Financial.Stress <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">as.character</span>(numeric_vars<span class="sc">$</span>Financial.Stress))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: NAs introduced by coercion</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb79"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create correlation matrix</span></span>
-<span id="cb79-2"><a href="#cb79-2" aria-hidden="true" tabindex="-1"></a>cor_matrix <span class="ot">&lt;-</span> <span class="fu">cor</span>(numeric_vars, <span class="at">use =</span> <span class="st">"complete.obs"</span>)</span>
-<span id="cb79-3"><a href="#cb79-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb79-4"><a href="#cb79-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create correlation plot</span></span>
-<span id="cb79-5"><a href="#cb79-5" aria-hidden="true" tabindex="-1"></a><span class="fu">corrplot</span>(cor_matrix, </span>
-<span id="cb79-6"><a href="#cb79-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">method =</span> <span class="st">"color"</span>,</span>
-<span id="cb79-7"><a href="#cb79-7" aria-hidden="true" tabindex="-1"></a>         <span class="at">type =</span> <span class="st">"upper"</span>,</span>
-<span id="cb79-8"><a href="#cb79-8" aria-hidden="true" tabindex="-1"></a>         <span class="at">addCoef.col =</span> <span class="st">"black"</span>,</span>
-<span id="cb79-9"><a href="#cb79-9" aria-hidden="true" tabindex="-1"></a>         <span class="at">tl.col =</span> <span class="st">"black"</span>,</span>
-<span id="cb79-10"><a href="#cb79-10" aria-hidden="true" tabindex="-1"></a>         <span class="at">tl.srt =</span> <span class="dv">45</span>,</span>
-<span id="cb79-11"><a href="#cb79-11" aria-hidden="true" tabindex="-1"></a>         <span class="at">diag =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="student-depression-analysis_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="student-depression-analysis_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -979,81 +628,6 @@ Insurers may incorporate these predictive models to design better mental health 
 <p>In practice:</p>
 <p>For individuals with the event (e.g., depressed), the NRI is calculated as the percentage who move to a higher risk category minus the percentage who move to a lower risk category. For individuals without the event (e.g., not depressed), it is the percentage who move to a lower risk category minus the percentage who move to a higher risk category. The Total NRI is the sum of these two differences. An NRI value greater than 0 indicates that the new model has improved classification, while a negative NRI suggests a decline in performance, making it a useful measure for model comparison beyond traditional statistics like the AUC.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb80"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb80-1"><a href="#cb80-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(PredictABEL)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: package 'PredictABEL' was built under R version 4.3.3</code></pre>
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb82"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb82-1"><a href="#cb82-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create example data  </span></span>
-<span id="cb82-2"><a href="#cb82-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)  </span>
-<span id="cb82-3"><a href="#cb82-3" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">1000</span>  </span>
-<span id="cb82-4"><a href="#cb82-4" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(  </span>
-<span id="cb82-5"><a href="#cb82-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">age =</span> <span class="fu">rnorm</span>(n, <span class="at">mean =</span> <span class="dv">20</span>, <span class="at">sd =</span> <span class="dv">2</span>),  </span>
-<span id="cb82-6"><a href="#cb82-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">gender =</span> <span class="fu">factor</span>(<span class="fu">sample</span>(<span class="fu">c</span>(<span class="st">"M"</span>, <span class="st">"F"</span>), n, <span class="at">replace =</span> <span class="cn">TRUE</span>)),  </span>
-<span id="cb82-7"><a href="#cb82-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">cgpa =</span> <span class="fu">rnorm</span>(n, <span class="at">mean =</span> <span class="fl">3.0</span>, <span class="at">sd =</span> <span class="fl">0.5</span>),  </span>
-<span id="cb82-8"><a href="#cb82-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">sleep_hours =</span> <span class="fu">rnorm</span>(n, <span class="at">mean =</span> <span class="dv">7</span>, <span class="at">sd =</span> <span class="fl">1.5</span>),  </span>
-<span id="cb82-9"><a href="#cb82-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">depression =</span> <span class="fu">rbinom</span>(n, <span class="dv">1</span>, <span class="fl">0.3</span>)  </span>
-<span id="cb82-10"><a href="#cb82-10" aria-hidden="true" tabindex="-1"></a>)  </span>
-<span id="cb82-11"><a href="#cb82-11" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb82-12"><a href="#cb82-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit base model (without sleep_hours)  </span></span>
-<span id="cb82-13"><a href="#cb82-13" aria-hidden="true" tabindex="-1"></a>base_model <span class="ot">&lt;-</span> <span class="fu">glm</span>(depression <span class="sc">~</span> age <span class="sc">+</span> gender <span class="sc">+</span> cgpa,   </span>
-<span id="cb82-14"><a href="#cb82-14" aria-hidden="true" tabindex="-1"></a>                  <span class="at">family =</span> <span class="fu">binomial</span>(),   </span>
-<span id="cb82-15"><a href="#cb82-15" aria-hidden="true" tabindex="-1"></a>                  <span class="at">data =</span> data)  </span>
-<span id="cb82-16"><a href="#cb82-16" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb82-17"><a href="#cb82-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit enhanced model (with sleep_hours)  </span></span>
-<span id="cb82-18"><a href="#cb82-18" aria-hidden="true" tabindex="-1"></a>enhanced_model <span class="ot">&lt;-</span> <span class="fu">glm</span>(depression <span class="sc">~</span> age <span class="sc">+</span> gender <span class="sc">+</span> cgpa <span class="sc">+</span> sleep_hours,   </span>
-<span id="cb82-19"><a href="#cb82-19" aria-hidden="true" tabindex="-1"></a>                      <span class="at">family =</span> <span class="fu">binomial</span>(),   </span>
-<span id="cb82-20"><a href="#cb82-20" aria-hidden="true" tabindex="-1"></a>                      <span class="at">data =</span> data)  </span>
-<span id="cb82-21"><a href="#cb82-21" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb82-22"><a href="#cb82-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate predictions  </span></span>
-<span id="cb82-23"><a href="#cb82-23" aria-hidden="true" tabindex="-1"></a>pred_base <span class="ot">&lt;-</span> <span class="fu">predict</span>(base_model, <span class="at">type =</span> <span class="st">"response"</span>)  </span>
-<span id="cb82-24"><a href="#cb82-24" aria-hidden="true" tabindex="-1"></a>pred_enhanced <span class="ot">&lt;-</span> <span class="fu">predict</span>(enhanced_model, <span class="at">type =</span> <span class="st">"response"</span>)  </span>
-<span id="cb82-25"><a href="#cb82-25" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb82-26"><a href="#cb82-26" aria-hidden="true" tabindex="-1"></a><span class="co"># Function to calculate NRI for a binary risk category (low vs high) based on a given cutoff  </span></span>
-<span id="cb82-27"><a href="#cb82-27" aria-hidden="true" tabindex="-1"></a>calculate_nri <span class="ot">&lt;-</span> <span class="cf">function</span>(old_preds, new_preds, actual, cutoff) {  </span>
-<span id="cb82-28"><a href="#cb82-28" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Create risk categories based on the cutoff  </span></span>
-<span id="cb82-29"><a href="#cb82-29" aria-hidden="true" tabindex="-1"></a>  old_cats <span class="ot">&lt;-</span> <span class="fu">cut</span>(old_preds, <span class="at">breaks =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="cn">Inf</span>, cutoff, <span class="cn">Inf</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"low"</span>, <span class="st">"high"</span>))  </span>
-<span id="cb82-30"><a href="#cb82-30" aria-hidden="true" tabindex="-1"></a>  new_cats <span class="ot">&lt;-</span> <span class="fu">cut</span>(new_preds, <span class="at">breaks =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="cn">Inf</span>, cutoff, <span class="cn">Inf</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"low"</span>, <span class="st">"high"</span>))  </span>
-<span id="cb82-31"><a href="#cb82-31" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb82-32"><a href="#cb82-32" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Identify events (cases) and non-events (controls)  </span></span>
-<span id="cb82-33"><a href="#cb82-33" aria-hidden="true" tabindex="-1"></a>  events <span class="ot">&lt;-</span> actual <span class="sc">==</span> <span class="dv">1</span>  </span>
-<span id="cb82-34"><a href="#cb82-34" aria-hidden="true" tabindex="-1"></a>  nonevents <span class="ot">&lt;-</span> actual <span class="sc">==</span> <span class="dv">0</span>  </span>
-<span id="cb82-35"><a href="#cb82-35" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb82-36"><a href="#cb82-36" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Calculate movement for events  </span></span>
-<span id="cb82-37"><a href="#cb82-37" aria-hidden="true" tabindex="-1"></a>  events_up <span class="ot">&lt;-</span> <span class="fu">sum</span>(old_cats[events] <span class="sc">==</span> <span class="st">"low"</span> <span class="sc">&amp;</span> new_cats[events] <span class="sc">==</span> <span class="st">"high"</span>)  </span>
-<span id="cb82-38"><a href="#cb82-38" aria-hidden="true" tabindex="-1"></a>  events_down <span class="ot">&lt;-</span> <span class="fu">sum</span>(old_cats[events] <span class="sc">==</span> <span class="st">"high"</span> <span class="sc">&amp;</span> new_cats[events] <span class="sc">==</span> <span class="st">"low"</span>)  </span>
-<span id="cb82-39"><a href="#cb82-39" aria-hidden="true" tabindex="-1"></a>  n_events <span class="ot">&lt;-</span> <span class="fu">sum</span>(events)  </span>
-<span id="cb82-40"><a href="#cb82-40" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb82-41"><a href="#cb82-41" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Calculate movement for non-events  </span></span>
-<span id="cb82-42"><a href="#cb82-42" aria-hidden="true" tabindex="-1"></a>  nonevents_up <span class="ot">&lt;-</span> <span class="fu">sum</span>(old_cats[nonevents] <span class="sc">==</span> <span class="st">"low"</span> <span class="sc">&amp;</span> new_cats[nonevents] <span class="sc">==</span> <span class="st">"high"</span>)  </span>
-<span id="cb82-43"><a href="#cb82-43" aria-hidden="true" tabindex="-1"></a>  nonevents_down <span class="ot">&lt;-</span> <span class="fu">sum</span>(old_cats[nonevents] <span class="sc">==</span> <span class="st">"high"</span> <span class="sc">&amp;</span> new_cats[nonevents] <span class="sc">==</span> <span class="st">"low"</span>)  </span>
-<span id="cb82-44"><a href="#cb82-44" aria-hidden="true" tabindex="-1"></a>  n_nonevents <span class="ot">&lt;-</span> <span class="fu">sum</span>(nonevents)  </span>
-<span id="cb82-45"><a href="#cb82-45" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb82-46"><a href="#cb82-46" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Compute NRI for events and non-events  </span></span>
-<span id="cb82-47"><a href="#cb82-47" aria-hidden="true" tabindex="-1"></a>  event_nri <span class="ot">&lt;-</span> (events_up <span class="sc">-</span> events_down) <span class="sc">/</span> n_events  </span>
-<span id="cb82-48"><a href="#cb82-48" aria-hidden="true" tabindex="-1"></a>  nonevent_nri <span class="ot">&lt;-</span> (nonevents_down <span class="sc">-</span> nonevents_up) <span class="sc">/</span> n_nonevents  </span>
-<span id="cb82-49"><a href="#cb82-49" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb82-50"><a href="#cb82-50" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Total NRI is the sum of event and nonevent components  </span></span>
-<span id="cb82-51"><a href="#cb82-51" aria-hidden="true" tabindex="-1"></a>  nri <span class="ot">&lt;-</span> event_nri <span class="sc">+</span> nonevent_nri  </span>
-<span id="cb82-52"><a href="#cb82-52" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb82-53"><a href="#cb82-53" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Return a list with detailed components  </span></span>
-<span id="cb82-54"><a href="#cb82-54" aria-hidden="true" tabindex="-1"></a>  results <span class="ot">&lt;-</span> <span class="fu">list</span>(  </span>
-<span id="cb82-55"><a href="#cb82-55" aria-hidden="true" tabindex="-1"></a>    <span class="at">nri =</span> nri,  </span>
-<span id="cb82-56"><a href="#cb82-56" aria-hidden="true" tabindex="-1"></a>    <span class="at">event_nri =</span> event_nri,  </span>
-<span id="cb82-57"><a href="#cb82-57" aria-hidden="true" tabindex="-1"></a>    <span class="at">nonevent_nri =</span> nonevent_nri,  </span>
-<span id="cb82-58"><a href="#cb82-58" aria-hidden="true" tabindex="-1"></a>    <span class="at">events_reclassified =</span> (events_up <span class="sc">+</span> events_down) <span class="sc">/</span> n_events,  </span>
-<span id="cb82-59"><a href="#cb82-59" aria-hidden="true" tabindex="-1"></a>    <span class="at">nonevents_reclassified =</span> (nonevents_up <span class="sc">+</span> nonevents_down) <span class="sc">/</span> n_nonevents  </span>
-<span id="cb82-60"><a href="#cb82-60" aria-hidden="true" tabindex="-1"></a>  )  </span>
-<span id="cb82-61"><a href="#cb82-61" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb82-62"><a href="#cb82-62" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(results)  </span>
-<span id="cb82-63"><a href="#cb82-63" aria-hidden="true" tabindex="-1"></a>}  </span>
-<span id="cb82-64"><a href="#cb82-64" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb82-65"><a href="#cb82-65" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate NRI with a cutoff of 0.3  </span></span>
-<span id="cb82-66"><a href="#cb82-66" aria-hidden="true" tabindex="-1"></a>nri_results <span class="ot">&lt;-</span> <span class="fu">calculate_nri</span>(pred_base, pred_enhanced, data<span class="sc">$</span>depression, <span class="fl">0.3</span>)  </span>
-<span id="cb82-67"><a href="#cb82-67" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb82-68"><a href="#cb82-68" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the NRI results  </span></span>
-<span id="cb82-69"><a href="#cb82-69" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(nri_results)  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>$nri
 [1] -0.02291923
@@ -1072,86 +646,23 @@ $nonevents_reclassified
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb84"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb84-1"><a href="#cb84-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load required libraries</span></span>
-<span id="cb84-2"><a href="#cb84-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb84-3"><a href="#cb84-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(reshape2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: package 'reshape2' was built under R version 4.3.3</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>
-Attaching package: 'reshape2'</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>The following object is masked from 'package:tidyr':
-
-    smiths</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb88"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb88-1"><a href="#cb88-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create NRI visualization data</span></span>
-<span id="cb88-2"><a href="#cb88-2" aria-hidden="true" tabindex="-1"></a>nri_components <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb88-3"><a href="#cb88-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">Component =</span> <span class="fu">c</span>(<span class="st">"Events (Depressed)"</span>, <span class="st">"Non-events (Not Depressed)"</span>, <span class="st">"Total NRI"</span>),</span>
-<span id="cb88-4"><a href="#cb88-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">Value =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.01013514</span>, <span class="dv">0</span>, <span class="sc">-</span><span class="fl">0.01013514</span>)</span>
-<span id="cb88-5"><a href="#cb88-5" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb88-6"><a href="#cb88-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb88-7"><a href="#cb88-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Create waterfall chart</span></span>
-<span id="cb88-8"><a href="#cb88-8" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(nri_components, <span class="fu">aes</span>(<span class="at">x =</span> Component, <span class="at">y =</span> Value, <span class="at">fill =</span> Component)) <span class="sc">+</span></span>
-<span id="cb88-9"><a href="#cb88-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>) <span class="sc">+</span></span>
-<span id="cb88-10"><a href="#cb88-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">sprintf</span>(<span class="st">"%.3f"</span>, Value), </span>
-<span id="cb88-11"><a href="#cb88-11" aria-hidden="true" tabindex="-1"></a>                <span class="at">y =</span> <span class="fu">ifelse</span>(Value <span class="sc">&gt;=</span> <span class="dv">0</span>, Value <span class="sc">+</span> <span class="fl">0.001</span>, Value <span class="sc">-</span> <span class="fl">0.001</span>)),</span>
-<span id="cb88-12"><a href="#cb88-12" aria-hidden="true" tabindex="-1"></a>            <span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="fl">0.9</span>),</span>
-<span id="cb88-13"><a href="#cb88-13" aria-hidden="true" tabindex="-1"></a>            <span class="at">vjust =</span> <span class="fu">ifelse</span>(nri_components<span class="sc">$</span>Value <span class="sc">&gt;=</span> <span class="dv">0</span>, <span class="sc">-</span><span class="fl">0.5</span>, <span class="fl">1.5</span>)) <span class="sc">+</span></span>
-<span id="cb88-14"><a href="#cb88-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"#FF9999"</span>, <span class="st">"#99FF99"</span>, <span class="st">"#9999FF"</span>)) <span class="sc">+</span></span>
-<span id="cb88-15"><a href="#cb88-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Net Reclassification Improvement (NRI) Components"</span>,</span>
-<span id="cb88-16"><a href="#cb88-16" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"NRI Value"</span>,</span>
-<span id="cb88-17"><a href="#cb88-17" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">""</span>) <span class="sc">+</span></span>
-<span id="cb88-18"><a href="#cb88-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb88-19"><a href="#cb88-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="student-depression-analysis_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="student-depression-analysis_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb89"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb89-1"><a href="#cb89-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create reclassification table</span></span>
-<span id="cb89-2"><a href="#cb89-2" aria-hidden="true" tabindex="-1"></a>reclass_data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb89-3"><a href="#cb89-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">Category =</span> <span class="fu">c</span>(<span class="st">"Events Reclassified"</span>, <span class="st">"Non-events Reclassified"</span>),</span>
-<span id="cb89-4"><a href="#cb89-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">Percentage =</span> <span class="fu">c</span>(<span class="fl">0.04391892</span>, <span class="fl">0.04829545</span>)</span>
-<span id="cb89-5"><a href="#cb89-5" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb89-6"><a href="#cb89-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb89-7"><a href="#cb89-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Create reclassification bar plot</span></span>
-<span id="cb89-8"><a href="#cb89-8" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(reclass_data, <span class="fu">aes</span>(<span class="at">x =</span> Category, <span class="at">y =</span> Percentage, <span class="at">fill =</span> Category)) <span class="sc">+</span></span>
-<span id="cb89-9"><a href="#cb89-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>) <span class="sc">+</span></span>
-<span id="cb89-10"><a href="#cb89-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">sprintf</span>(<span class="st">"%.1f%%"</span>, Percentage <span class="sc">*</span> <span class="dv">100</span>)),</span>
-<span id="cb89-11"><a href="#cb89-11" aria-hidden="true" tabindex="-1"></a>            <span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="fl">0.9</span>),</span>
-<span id="cb89-12"><a href="#cb89-12" aria-hidden="true" tabindex="-1"></a>            <span class="at">vjust =</span> <span class="sc">-</span><span class="fl">0.5</span>) <span class="sc">+</span></span>
-<span id="cb89-13"><a href="#cb89-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"#FF9999"</span>, <span class="st">"#99FF99"</span>)) <span class="sc">+</span></span>
-<span id="cb89-14"><a href="#cb89-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Percentage of Cases Reclassified"</span>,</span>
-<span id="cb89-15"><a href="#cb89-15" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Percentage"</span>,</span>
-<span id="cb89-16"><a href="#cb89-16" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">""</span>) <span class="sc">+</span></span>
-<span id="cb89-17"><a href="#cb89-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb89-18"><a href="#cb89-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="student-depression-analysis_files/figure-html/unnamed-chunk-13-2.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="student-depression-analysis_files/figure-html/unnamed-chunk-14-2.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb90"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb90-1"><a href="#cb90-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create detailed reclassification summary</span></span>
-<span id="cb90-2"><a href="#cb90-2" aria-hidden="true" tabindex="-1"></a>summary_stats <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb90-3"><a href="#cb90-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">Metric =</span> <span class="fu">c</span>(<span class="st">"Total NRI"</span>, <span class="st">"Event NRI"</span>, <span class="st">"Non-event NRI"</span>, </span>
-<span id="cb90-4"><a href="#cb90-4" aria-hidden="true" tabindex="-1"></a>             <span class="st">"Events Reclassified (%)"</span>, <span class="st">"Non-events Reclassified (%)"</span>),</span>
-<span id="cb90-5"><a href="#cb90-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">Value =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.01013514</span>, <span class="sc">-</span><span class="fl">0.01013514</span>, <span class="dv">0</span>, </span>
-<span id="cb90-6"><a href="#cb90-6" aria-hidden="true" tabindex="-1"></a>            <span class="fl">4.39</span>, <span class="fl">4.83</span>)</span>
-<span id="cb90-7"><a href="#cb90-7" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb90-8"><a href="#cb90-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb90-9"><a href="#cb90-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Print summary table</span></span>
-<span id="cb90-10"><a href="#cb90-10" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="st">"Detailed NRI Analysis:"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "Detailed NRI Analysis:"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb92"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb92-1"><a href="#cb92-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(summary_stats)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>                       Metric       Value
 1                   Total NRI -0.01013514
@@ -1162,40 +673,24 @@ Attaching package: 'reshape2'</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb94"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb94-1"><a href="#cb94-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"student_depression_dataset.csv"</span>)</span>
-<span id="cb94-2"><a href="#cb94-2" aria-hidden="true" tabindex="-1"></a>table_result <span class="ot">&lt;-</span> <span class="fu">table</span>(df<span class="sc">$</span>Depression)</span>
-<span id="cb94-3"><a href="#cb94-3" aria-hidden="true" tabindex="-1"></a>prop_table <span class="ot">&lt;-</span> <span class="fu">prop.table</span>(table_result) <span class="sc">*</span> <span class="dv">100</span></span>
-<span id="cb94-4"><a href="#cb94-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb94-5"><a href="#cb94-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a bar plot</span></span>
-<span id="cb94-6"><a href="#cb94-6" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(table_result, </span>
-<span id="cb94-7"><a href="#cb94-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">main=</span><span class="st">"Distribution of Depression Levels"</span>,</span>
-<span id="cb94-8"><a href="#cb94-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">col=</span><span class="fu">c</span>(<span class="st">"lightblue"</span>, <span class="st">"lightgreen"</span>, <span class="st">"lightcoral"</span>),</span>
-<span id="cb94-9"><a href="#cb94-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">ylab=</span><span class="st">"Count"</span>,</span>
-<span id="cb94-10"><a href="#cb94-10" aria-hidden="true" tabindex="-1"></a>        <span class="at">ylim=</span><span class="fu">c</span>(<span class="dv">0</span>, <span class="fu">max</span>(table_result) <span class="sc">*</span> <span class="fl">1.2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="student-depression-analysis_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="student-depression-analysis_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb95"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb95-1"><a href="#cb95-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Print counts and percentages</span></span>
-<span id="cb95-2"><a href="#cb95-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="st">"Counts:"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "Counts:"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb97"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb97-1"><a href="#cb97-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(table_result)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     0     1 
 11565 16336 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb99"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb99-1"><a href="#cb99-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="st">"\</span></span>
-<span id="cb99-2"><a href="#cb99-2" aria-hidden="true" tabindex="-1"></a><span class="st">Percentages:"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "\nPercentages:"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb101"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb101-1"><a href="#cb101-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">round</span>(prop_table, <span class="dv">2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     0     1 
